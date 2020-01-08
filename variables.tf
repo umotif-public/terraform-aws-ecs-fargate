@@ -47,8 +47,14 @@ variable "task_container_assign_public_ip" {
 }
 
 variable "task_container_port" {
-  description = "Port that the container exposes."
+  description = "The port number on the container that is bound to the user-specified or automatically assigned host port"
   type        = number
+}
+
+variable "task_host_port" {
+  description = "The port number on the container instance to reserve for your container."
+  type        = number
+  default     = 0
 }
 
 variable "task_container_protocol" {
@@ -139,4 +145,10 @@ variable "service_registry_arn" {
   default     = ""
   description = "ARN of aws_service_discovery_service resource"
   type        = string
+}
+
+variable "propogate_tags" {
+  type        = string
+  description = "Specifies whether to propagate the tags from the task definition or the service to the tasks. The valid values are SERVICE and TASK_DEFINITION."
+  default     = "TASK_DEFINITION"
 }
