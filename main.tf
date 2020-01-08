@@ -119,8 +119,7 @@ resource "aws_ecs_task_definition" "task" {
   family                   = var.name_prefix
   execution_role_arn       = aws_iam_role.execution.arn
   network_mode             = "awsvpc"
-  requires_compatibilities = [
-    "FARGATE"]
+  requires_compatibilities = ["FARGATE"]
   cpu                      = var.task_definition_cpu
   memory                   = var.task_definition_memory
   task_role_arn            = aws_iam_role.task.arn
@@ -190,8 +189,7 @@ resource "aws_ecs_service" "service" {
   }
 
   dynamic "service_registries" {
-    for_each = var.service_registry_arn == "" ? [] : [
-      1]
+    for_each = var.service_registry_arn == "" ? [] : [1]
     content {
       registry_arn   = var.service_registry_arn
       container_port = var.task_container_port
