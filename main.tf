@@ -123,8 +123,13 @@ resource "aws_ecs_task_definition" "task" {
   cpu                      = var.task_definition_cpu
   memory                   = var.task_definition_memory
   task_role_arn            = aws_iam_role.task.arn
-
-  container_definitions = <<EOF
+  tags                     = merge(
+  var.tags,
+  {
+    Name = var.container_name != "" ? var.container_name : var.name_prefix
+  },
+  )
+  container_definitions    = <<EOF
 [{
     "name": "${var.container_name != "" ? var.container_name : var.name_prefix}",
     "image": "${var.task_container_image}",
@@ -137,7 +142,7 @@ resource "aws_ecs_task_definition" "task" {
     "portMappings": [
         {
             "containerPort": ${var.task_container_port},
-            "hostPort": ${var.task_container_port},
+            "hostPort": ${var.task_host_port},
             "protocol":"tcp"
         }
     ],
@@ -161,6 +166,7 @@ resource "aws_ecs_service" "service" {
   cluster                            = var.cluster_id
   task_definition                    = aws_ecs_task_definition.task.arn
   desired_count                      = var.desired_count
+  propagate_tags                     = var.propogate_tags
   launch_type                        = "FARGATE"
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.deployment_maximum_percent
@@ -190,6 +196,13 @@ resource "aws_ecs_service" "service" {
       container_name = var.container_name != "" ? var.container_name : var.name_prefix
     }
   }
+
+  tags = merge(
+  var.tags,
+  {
+    Name = "${var.name_prefix}-service"
+  },
+  )
 }
 
 # HACK: The workaround used in ecs/service does not work for some reason in this module, this fixes the following error:
