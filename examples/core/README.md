@@ -19,7 +19,7 @@ terraform apply --auto-approve
 | name\_prefix | A prefix used for naming resources. | string | n/a | yes |
 | private\_subnet\_ids | A list of private subnets inside the VPC | list(string) | n/a | yes |
 | task\_container\_image | The image used to start a container. | string | n/a | yes |
-| task\_container\_port | Port that the container exposes. | number | n/a | yes |
+| task\_container\_port | The port number on the container that is bound to the user-specified or automatically assigned host port | number | n/a | yes |
 | vpc\_id | The VPC ID. | string | n/a | yes |
 | container\_name | Optional name for the container to be used instead of name_prefix. | string | `""` | no |
 | deployment\_controller\_type | Type of deployment controller. Valid values: CODE_DEPLOY, ECS. | string | `"ECS"` | no |
@@ -28,6 +28,7 @@ terraform apply --auto-approve
 | desired\_count | The number of instances of the task definitions to place and keep running. | number | `"1"` | no |
 | health\_check\_grace\_period\_seconds | Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 7200. Only valid for services configured to use load balancers. | number | `"300"` | no |
 | log\_retention\_in\_days | Number of days the logs will be retained in CloudWatch. | number | `"30"` | no |
+| propogate\_tags | Specifies whether to propagate the tags from the task definition or the service to the tasks. The valid values are SERVICE and TASK_DEFINITION. | string | `"TASK_DEFINITION"` | no |
 | repository\_credentials | name or ARN of a secrets manager secret (arn:aws:secretsmanager:region:aws_account_id:secret:secret_name) | string | `""` | no |
 | repository\_credentials\_kms\_key | key id, key ARN, alias name or alias ARN of the key that encrypted the repository credentials | string | `"alias/aws/secretsmanager"` | no |
 | service\_registry\_arn | ARN of aws_service_discovery_service resource | string | `""` | no |
@@ -38,6 +39,7 @@ terraform apply --auto-approve
 | task\_container\_protocol | Protocol that the container exposes. | string | `"HTTP"` | no |
 | task\_definition\_cpu | Amount of CPU to reserve for the task. | number | `"256"` | no |
 | task\_definition\_memory | The soft limit (in MiB) of memory to reserve for the container. | number | `"512"` | no |
+| task\_host\_port | The port number on the container instance to reserve for your container. | number | `"0"` | no |
 
 ## Outputs
 
