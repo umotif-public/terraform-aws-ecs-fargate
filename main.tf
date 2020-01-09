@@ -123,13 +123,13 @@ resource "aws_ecs_task_definition" "task" {
   cpu                      = var.task_definition_cpu
   memory                   = var.task_definition_memory
   task_role_arn            = aws_iam_role.task.arn
-  tags                     = merge(
-  var.tags,
-  {
-    Name = var.container_name != "" ? var.container_name : var.name_prefix
-  },
+  tags = merge(
+    var.tags,
+    {
+      Name = var.container_name != "" ? var.container_name : var.name_prefix
+    },
   )
-  container_definitions    = <<EOF
+  container_definitions = <<EOF
 [{
     "name": "${var.container_name != "" ? var.container_name : var.name_prefix}",
     "image": "${var.task_container_image}",
@@ -142,7 +142,7 @@ resource "aws_ecs_task_definition" "task" {
     "portMappings": [
         {
             "containerPort": ${var.task_container_port},
-             %{if var.task_host_port != 0~}
+            %{if var.task_host_port != 0~}
             "hostPort": ${var.task_host_port},
             %{~endif}
             "protocol":"tcp"
@@ -200,10 +200,10 @@ resource "aws_ecs_service" "service" {
   }
 
   tags = merge(
-  var.tags,
-  {
-    Name = "${var.name_prefix}-service"
-  },
+    var.tags,
+    {
+      Name = "${var.name_prefix}-service"
+    },
   )
 }
 
