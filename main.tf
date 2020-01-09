@@ -142,7 +142,9 @@ resource "aws_ecs_task_definition" "task" {
     "portMappings": [
         {
             "containerPort": ${var.task_container_port},
+            %{if var.task_host_port != 0~}
             "hostPort": ${var.task_host_port},
+            %{~endif}
             "protocol":"tcp"
         }
     ],
