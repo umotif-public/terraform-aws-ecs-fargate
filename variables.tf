@@ -154,7 +154,7 @@ variable "propogate_tags" {
 }
 
 variable "target_group_name" {
-  type = "string"
+  type = string
   default = ""
   description = "The name for the tasks target group"
 }
