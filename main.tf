@@ -181,10 +181,13 @@ resource "aws_ecs_service" "service" {
     assign_public_ip = var.task_container_assign_public_ip
   }
 
-  load_balancer {
-    container_name   = var.container_name != "" ? var.container_name : var.name_prefix
-    container_port   = var.task_container_port
-    target_group_arn = aws_lb_target_group.task.arn
+  dynamic "load_balancer" {
+    for_each = var.load_balanced ? [1] : []
+    content {
+      container_name   = var.container_name != "" ? var.container_name : var.name_prefix
+      container_port   = var.task_container_port
+      target_group_arn = aws_lb_target_group.task.arn
+    }
   }
 
   deployment_controller {

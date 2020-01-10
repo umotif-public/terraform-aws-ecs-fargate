@@ -158,3 +158,9 @@ variable "target_group_name" {
   default     = ""
   description = "The name for the tasks target group"
 }
+
+variable "load_balanced" {
+  type = bool
+  default = true
+  description = "Whether the task should be loadbalanced."
+}
