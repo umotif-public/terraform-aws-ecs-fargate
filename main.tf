@@ -182,7 +182,7 @@ resource "aws_ecs_service" "service" {
   }
 
   dynamic "load_balancer" {
-    for_each = var.load_balanced ? [] : [1]
+    for_each = var.load_balanced ? [1] : []
     content {
       container_name   = var.container_name != "" ? var.container_name : var.name_prefix
       container_port   = var.task_container_port
