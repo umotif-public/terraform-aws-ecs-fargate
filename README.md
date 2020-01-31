@@ -90,6 +90,7 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 | task\_host\_port | The port number on the container instance to reserve for your container. | number | `"0"` | no |
 | target\_group\_name | The name for the tasks target group. | string | `""` | no |
 | load\_balanced | Whether the task should be loadbalanced. | bool | `true` | no |
+| logs_kms_key | The KMS key ARN to use to encrypt container logs. | string | `""` | no |
 
 ## Outputs
 
