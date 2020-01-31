@@ -164,3 +164,9 @@ variable "load_balanced" {
   default = true
   description = "Whether the task should be loadbalanced."
 }
+
+variable "logs_kms_key" {
+  type = string
+  description = "The KMS key ARN to use to encrypt container logs."
+  default = ""
+}
