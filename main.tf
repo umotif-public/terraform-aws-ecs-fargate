@@ -5,8 +5,8 @@ resource "aws_cloudwatch_log_group" "main" {
   name              = var.name_prefix
   retention_in_days = var.log_retention_in_days
 
-  kms_key_id        = var.logs_kms_key
-  tags              = var.tags
+  kms_key_id = var.logs_kms_key
+  tags       = var.tags
 }
 
 #####
@@ -74,7 +74,7 @@ resource "aws_security_group_rule" "egress_service" {
 # Load Balancer Target group
 #####
 resource "aws_lb_target_group" "task" {
-  name = var.target_group_name !="" ? var.target_group_name :  "${var.name_prefix}-target-${var.task_container_port}"
+  name        = var.target_group_name != "" ? var.target_group_name : "${var.name_prefix}-target-${var.task_container_port}"
   vpc_id      = var.vpc_id
   protocol    = var.task_container_protocol
   port        = var.task_container_port
@@ -101,7 +101,7 @@ resource "aws_lb_target_group" "task" {
   tags = merge(
     var.tags,
     {
-      Name = var.target_group_name !="" ? var.target_group_name :  "${var.name_prefix}-target-${var.task_container_port}"
+      Name = var.target_group_name != "" ? var.target_group_name : "${var.name_prefix}-target-${var.task_container_port}"
     },
   )
 }
