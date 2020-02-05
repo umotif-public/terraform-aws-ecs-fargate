@@ -160,13 +160,13 @@ variable "target_group_name" {
 }
 
 variable "load_balanced" {
-  type = bool
-  default = true
+  type        = bool
+  default     = true
   description = "Whether the task should be loadbalanced."
 }
 
 variable "logs_kms_key" {
-  type = string
+  type        = string
   description = "The KMS key ARN to use to encrypt container logs."
-  default = ""
+  default     = ""
 }
