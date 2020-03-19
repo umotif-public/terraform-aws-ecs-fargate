@@ -74,6 +74,7 @@ resource "aws_security_group_rule" "egress_service" {
 # Load Balancer Target group
 #####
 resource "aws_lb_target_group" "task" {
+  count       = var.load_balanced ? 1 : 0
   name        = var.target_group_name != "" ? var.target_group_name : "${var.name_prefix}-target-${var.task_container_port}"
   vpc_id      = var.vpc_id
   protocol    = var.task_container_protocol
@@ -158,6 +159,15 @@ resource "aws_ecs_task_definition" "task" {
       "awslogs-stream-prefix": "container"
     }
   },
+  %{if var.task_health_check != null~}
+  "healthcheck": {
+      "command": ${jsonencode(var.task_health_check.command)},
+      "interval": ${var.task_health_check.interval},
+      "timeout": ${var.task_health_check.timeout},
+      "retries": ${var.task_health_check.retries},
+      "startPeriod": ${var.task_health_check.startPeriod}
+  },
+  %{~endif}
   "command": ${jsonencode(var.task_container_command)},
   "environment": ${jsonencode(local.task_environment)}
 }]

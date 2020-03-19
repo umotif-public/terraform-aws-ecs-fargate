@@ -200,3 +200,9 @@ variable "docker_volume_configuration" {
   description = "(Optional) Used to configure a docker volume option \"docker_volume_configuration\". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html"
   default     = []
 }
+
+variable "task_health_check" {
+  type        = object({ command = list(string), interval = number, timeout = number, retries = number, startPeriod = number })
+  description = "An optional healthcheck definition for the task"
+  default     = null
+}
