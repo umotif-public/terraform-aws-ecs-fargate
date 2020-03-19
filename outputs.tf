@@ -5,12 +5,12 @@ output "service_arn" {
 
 output "target_group_arn" {
   description = "The ARN of the Target Group used by Load Balancer."
-  value       = aws_lb_target_group.task.arn
+  value       = concat(aws_lb_target_group.task[*].arn, [""])[0]
 }
 
 output "target_group_name" {
   description = "The Name of the Target Group used by Load Balancer."
-  value       = aws_lb_target_group.task.name
+  value       = concat(aws_lb_target_group.task[*].name, [""])[0]
 }
 
 output "task_role_arn" {
