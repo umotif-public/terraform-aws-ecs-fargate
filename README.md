@@ -70,6 +70,13 @@ Module is to be used with Terraform > 0.12.
 Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](https://www.linkedin.com/in/marcincuber/).
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+| null | n/a |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -115,12 +122,12 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 | Name | Description |
 |------|-------------|
 | log\_group\_name | The name of the Cloudwatch log group for the task. |
-| service\_arn | The Amazon Resource Name \(ARN\) that identifies the ECS service. |
+| service\_arn | The Amazon Resource Name (ARN) that identifies the ECS service. |
 | service\_name | The name of the service. |
-| service\_sg\_id | The Amazon Resource Name \(ARN\) that identifies the service security group. |
+| service\_sg\_id | The Amazon Resource Name (ARN) that identifies the service security group. |
 | target\_group\_arn | The ARN of the Target Group used by Load Balancer. |
 | target\_group\_name | The Name of the Target Group used by Load Balancer. |
-| task\_role\_arn | The Amazon Resource Name \(ARN\) specifying the ECS service role. |
+| task\_role\_arn | The Amazon Resource Name (ARN) specifying the ECS service role. |
 | task\_role\_name | The name of the Fargate task service role. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
