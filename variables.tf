@@ -170,3 +170,33 @@ variable "logs_kms_key" {
   description = "The KMS key ARN to use to encrypt container logs."
   default     = ""
 }
+
+variable "capacity_provider_strategy" {
+  type        = list
+  description = "(Optional) The capacity_provider_strategy configuration block. This is a list of maps, where each map should contain \"capacity_provider \", \"weight\" and \"base\""
+  default     = []
+}
+
+variable "placement_constraints" {
+  type        = list
+  description = "(Optional) A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10. This is a list of maps, where each map should contain \"type\" and \"expression\""
+  default     = []
+}
+
+variable "proxy_configuration" {
+  type        = list
+  description = "(Optional) The proxy configuration details for the App Mesh proxy. This is a list of maps, where each map should contain \"container_name\", \"properties\" and \"type\""
+  default     = []
+}
+
+variable "volume" {
+  type        = list
+  description = "(Optional) A set of volume blocks that containers in your task may use. This is a list of maps, where each map should contain \"name\", \"host_path\" and \"docker_volume_configuration\". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html"
+  default     = []
+}
+
+variable "docker_volume_configuration" {
+  type        = list
+  description = "(Optional) Used to configure a docker volume option \"docker_volume_configuration\". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html"
+  default     = []
+}
