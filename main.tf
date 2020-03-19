@@ -249,7 +249,7 @@ resource "aws_ecs_service" "service" {
     content {
       container_name   = var.container_name != "" ? var.container_name : var.name_prefix
       container_port   = var.task_container_port
-      target_group_arn = aws_lb_target_group.task.arn
+      target_group_arn = aws_lb_target_group.task[0].arn
     }
   }
 
