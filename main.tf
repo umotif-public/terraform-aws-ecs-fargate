@@ -126,43 +126,85 @@ resource "aws_ecs_task_definition" "task" {
   cpu                      = var.task_definition_cpu
   memory                   = var.task_definition_memory
   task_role_arn            = aws_iam_role.task.arn
+
+  container_definitions = <<EOF
+[{
+  "name": "${var.container_name != "" ? var.container_name : var.name_prefix}",
+  "image": "${var.task_container_image}",
+  %{if var.repository_credentials != ""~}
+  "repositoryCredentials": {
+    "credentialsParameter": "${var.repository_credentials}"
+  },
+  %{~endif}
+  "essential": true,
+  %{if var.task_container_port != 0 || var.task_host_port != 0~}
+  "portMappings": [
+    {
+      %{if var.task_host_port != 0~}
+      "hostPort": ${var.task_host_port},
+      %{~endif}
+      %{if var.task_container_port != 0~}
+      "containerPort": ${var.task_container_port},
+      %{~endif}
+      "protocol":"tcp"
+    }
+  ],
+  %{~endif}
+  "logConfiguration": {
+    "logDriver": "awslogs",
+    "options": {
+      "awslogs-group": "${aws_cloudwatch_log_group.main.name}",
+      "awslogs-region": "${data.aws_region.current.name}",
+      "awslogs-stream-prefix": "container"
+    }
+  },
+  "command": ${jsonencode(var.task_container_command)},
+  "environment": ${jsonencode(local.task_environment)}
+}]
+EOF
+
+  dynamic "placement_constraints" {
+    for_each = var.placement_constraints
+    content {
+      expression = lookup(placement_constraints.value, "expression", null)
+      type       = placement_constraints.value.type
+    }
+  }
+
+  dynamic "proxy_configuration" {
+    for_each = var.proxy_configuration
+    content {
+      container_name = proxy_configuration.value.container_name
+      properties     = lookup(proxy_configuration.value, "properties", null)
+      type           = lookup(proxy_configuration.value, "type", null)
+    }
+  }
+
+  dynamic "volume" {
+    for_each = var.volume
+    content {
+      name      = volume.value.name
+      host_path = lookup(volume.value, "host_path", null)
+
+      dynamic "docker_volume_configuration" {
+        for_each = var.docker_volume_configuration
+        content {
+          scope         = lookup(docker_volume_configuration.value, "scope", null)
+          autoprovision = lookup(docker_volume_configuration.value, "autoprovision", null)
+          driver        = lookup(docker_volume_configuration.value, "driver", null)
+          driver_opts   = lookup(docker_volume_configuration.value, "driver_opts", null)
+          labels        = lookup(docker_volume_configuration.value, "labels", null)
+        }
+      }
+    }
+  }
+
   tags = merge(
     var.tags,
     {
       Name = var.container_name != "" ? var.container_name : var.name_prefix
     },
   )
-  container_definitions = <<EOF
-[{
-    "name": "${var.container_name != "" ? var.container_name : var.name_prefix}",
-    "image": "${var.task_container_image}",
-    %{if var.repository_credentials != ""~}
-    "repositoryCredentials": {
-        "credentialsParameter": "${var.repository_credentials}"
-    },
-    %{~endif}
-    "essential": true,
-    "portMappings": [
-        {
-            "containerPort": ${var.task_container_port},
-            %{if var.task_host_port != 0~}
-            "hostPort": ${var.task_host_port},
-            %{~endif}
-            "protocol":"tcp"
-        }
-    ],
-    "logConfiguration": {
-        "logDriver": "awslogs",
-        "options": {
-            "awslogs-group": "${aws_cloudwatch_log_group.main.name}",
-            "awslogs-region": "${data.aws_region.current.name}",
-            "awslogs-stream-prefix": "container"
-        }
-    },
-    "command": ${jsonencode(var.task_container_command)},
-    "environment": ${jsonencode(local.task_environment)}
-}]
-EOF
 }
 
 resource "aws_ecs_service" "service" {
@@ -172,7 +214,7 @@ resource "aws_ecs_service" "service" {
   task_definition                    = aws_ecs_task_definition.task.arn
   desired_count                      = var.desired_count
   propagate_tags                     = var.propogate_tags
-  launch_type                        = "FARGATE"
+  launch_type                        = length(var.capacity_provider_strategy) == 0 ? "FARGATE" : null
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.deployment_maximum_percent
   health_check_grace_period_seconds  = var.load_balanced ? var.health_check_grace_period_seconds : null
@@ -181,6 +223,15 @@ resource "aws_ecs_service" "service" {
     subnets          = var.private_subnet_ids
     security_groups  = [aws_security_group.ecs_service.id]
     assign_public_ip = var.task_container_assign_public_ip
+  }
+
+  dynamic "capacity_provider_strategy" {
+    for_each = var.capacity_provider_strategy
+    content {
+      capacity_provider = capacity_provider_strategy.value.capacity_provider
+      weight            = capacity_provider_strategy.value.weight
+      base              = lookup(capacity_provider_strategy.value, "base", null)
+    }
   }
 
   dynamic "load_balancer" {
