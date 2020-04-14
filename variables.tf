@@ -24,6 +24,11 @@ variable "cluster_id" {
   type        = string
 }
 
+variable "platform_version" {
+  description = "The platform version on which to run your service. Only applicable for launch_type set to FARGATE."
+  default     = "LATEST"
+}
+
 variable "task_container_image" {
   description = "The image used to start a container."
   type        = string
@@ -70,7 +75,7 @@ variable "task_definition_cpu" {
 }
 
 variable "task_definition_memory" {
-  description = "The soft limit (in MiB) of memory to reserve for the container."
+  description = "The soft limit (in MiB) of memory to reserve for the task."
   default     = 512
   type        = number
 }
@@ -191,13 +196,7 @@ variable "proxy_configuration" {
 
 variable "volume" {
   type        = list
-  description = "(Optional) A set of volume blocks that containers in your task may use. This is a list of maps, where each map should contain \"name\", \"host_path\" and \"docker_volume_configuration\". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html"
-  default     = []
-}
-
-variable "docker_volume_configuration" {
-  type        = list
-  description = "(Optional) Used to configure a docker volume option \"docker_volume_configuration\". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html"
+  description = "(Optional) A set of volume blocks that containers in your task may use. This is a list of maps, where each map should contain \"name\", \"host_path\", \"docker_volume_configuration\" and \"efs_volume_configuration\". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html"
   default     = []
 }
 
@@ -205,4 +204,28 @@ variable "task_health_check" {
   type        = object({ command = list(string), interval = number, timeout = number, retries = number, startPeriod = number })
   description = "An optional healthcheck definition for the task"
   default     = null
+}
+
+variable "task_container_cpu" {
+  description = "Amount of CPU to reserve for the container."
+  default     = null
+  type        = number
+}
+
+variable "task_container_memory" {
+  description = "The hard limit (in MiB) of memory for the container."
+  default     = null
+  type        = number
+}
+
+variable "task_container_memory_reservation" {
+  description = "The soft limit (in MiB) of memory to reserve for the container."
+  default     = null
+  type        = number
+}
+
+variable "task_container_working_directory" {
+  description = "The working directory to run commands inside the container."
+  default     = ""
+  type        = string
 }

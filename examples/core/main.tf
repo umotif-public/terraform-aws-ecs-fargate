@@ -83,6 +83,8 @@ module "fargate" {
   lb_arn             = module.alb.arn
   cluster_id         = aws_ecs_cluster.cluster.id
 
+  platform_version = "1.4.0" # defaults to LATEST
+
   task_container_image   = "marcincuber/2048-game:latest"
   task_definition_cpu    = 256
   task_definition_memory = 512

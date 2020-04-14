@@ -88,7 +88,6 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 | deployment\_maximum\_percent | The upper limit of the number of running tasks that can be running in a service during a deployment | `number` | `200` | no |
 | deployment\_minimum\_healthy\_percent | The lower limit of the number of running tasks that must remain running and healthy in a service during a deployment | `number` | `50` | no |
 | desired\_count | The number of instances of the task definitions to place and keep running. | `number` | `1` | no |
-| docker\_volume\_configuration | (Optional) Used to configure a docker volume option "docker\_volume\_configuration". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html | `list` | `[]` | no |
 | health\_check | A health block containing health check settings for the target group. Overrides the defaults. | `map(string)` | n/a | yes |
 | health\_check\_grace\_period\_seconds | Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 7200. Only valid for services configured to use load balancers. | `number` | `300` | no |
 | lb\_arn | Arn for the LB for which the service should be attach to. | `string` | n/a | yes |
@@ -97,6 +96,7 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 | logs\_kms\_key | The KMS key ARN to use to encrypt container logs. | `string` | `""` | no |
 | name\_prefix | A prefix used for naming resources. | `string` | n/a | yes |
 | placement\_constraints | (Optional) A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement\_constraints is 10. This is a list of maps, where each map should contain "type" and "expression" | `list` | `[]` | no |
+| platform\_version | The platform version on which to run your service. Only applicable for launch\_type set to FARGATE. | `string` | `"LATEST"` | no |
 | private\_subnet\_ids | A list of private subnets inside the VPC | `list(string)` | n/a | yes |
 | propogate\_tags | Specifies whether to propagate the tags from the task definition or the service to the tasks. The valid values are SERVICE and TASK\_DEFINITION. | `string` | `"TASK_DEFINITION"` | no |
 | proxy\_configuration | (Optional) The proxy configuration details for the App Mesh proxy. This is a list of maps, where each map should contain "container\_name", "properties" and "type" | `list` | `[]` | no |
@@ -107,15 +107,19 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 | target\_group\_name | The name for the tasks target group | `string` | `""` | no |
 | task\_container\_assign\_public\_ip | Assigned public IP to the container. | `bool` | `false` | no |
 | task\_container\_command | The command that is passed to the container. | `list(string)` | `[]` | no |
+| task\_container\_cpu | Amount of CPU to reserve for the container. | `number` | n/a | yes |
 | task\_container\_environment | The environment variables to pass to a container. | `map(string)` | `{}` | no |
 | task\_container\_image | The image used to start a container. | `string` | n/a | yes |
+| task\_container\_memory | The hard limit (in MiB) of memory for the container. | `number` | n/a | yes |
+| task\_container\_memory\_reservation | The soft limit (in MiB) of memory to reserve for the container. | `number` | n/a | yes |
 | task\_container\_port | The port number on the container that is bound to the user-specified or automatically assigned host port | `number` | n/a | yes |
 | task\_container\_protocol | Protocol that the container exposes. | `string` | `"HTTP"` | no |
+| task\_container\_working\_directory | The working directory to run commands inside the container. | `string` | `""` | no |
 | task\_definition\_cpu | Amount of CPU to reserve for the task. | `number` | `256` | no |
-| task\_definition\_memory | The soft limit (in MiB) of memory to reserve for the container. | `number` | `512` | no |
+| task\_definition\_memory | The soft limit (in MiB) of memory to reserve for the task. | `number` | `512` | no |
 | task\_health\_check | An optional healthcheck definition for the task | `object({ command = list(string), interval = number, timeout = number, retries = number, startPeriod = number })` | n/a | yes |
 | task\_host\_port | The port number on the container instance to reserve for your container. | `number` | `0` | no |
-| volume | (Optional) A set of volume blocks that containers in your task may use. This is a list of maps, where each map should contain "name", "host\_path" and "docker\_volume\_configuration". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html | `list` | `[]` | no |
+| volume | (Optional) A set of volume blocks that containers in your task may use. This is a list of maps, where each map should contain "name", "host\_path", "docker\_volume\_configuration" and "efs\_volume\_configuration". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html | `list` | `[]` | no |
 | vpc\_id | The VPC ID. | `string` | n/a | yes |
 
 ## Outputs
