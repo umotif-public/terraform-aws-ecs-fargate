@@ -161,14 +161,26 @@ resource "aws_ecs_task_definition" "task" {
   },
   %{if var.task_health_check != null~}
   "healthcheck": {
-      "command": ${jsonencode(var.task_health_check.command)},
-      "interval": ${var.task_health_check.interval},
-      "timeout": ${var.task_health_check.timeout},
-      "retries": ${var.task_health_check.retries},
-      "startPeriod": ${var.task_health_check.startPeriod}
+    "command": ${jsonencode(var.task_health_check.command)},
+    "interval": ${var.task_health_check.interval},
+    "timeout": ${var.task_health_check.timeout},
+    "retries": ${var.task_health_check.retries},
+    "startPeriod": ${var.task_health_check.startPeriod}
   },
   %{~endif}
   "command": ${jsonencode(var.task_container_command)},
+  %{if var.task_container_working_directory != ""~}
+  "workingDirectory": ${var.task_container_working_directory},
+  %{~endif}
+  %{if var.task_container_memory != null~}
+  "memory": ${var.task_container_memory},
+  %{~endif}
+  %{if var.task_container_memory_reservation != null~}
+  "memoryReservation": ${var.task_container_memory_reservation},
+  %{~endif}
+  %{if var.task_container_cpu != null~}
+  "cpu": ${var.task_container_cpu},
+  %{~endif}
   "environment": ${jsonencode(local.task_environment)}
 }]
 EOF
@@ -197,13 +209,21 @@ EOF
       host_path = lookup(volume.value, "host_path", null)
 
       dynamic "docker_volume_configuration" {
-        for_each = var.docker_volume_configuration
+        for_each = lookup(volume.value, "docker_volume_configuration", [])
         content {
           scope         = lookup(docker_volume_configuration.value, "scope", null)
           autoprovision = lookup(docker_volume_configuration.value, "autoprovision", null)
           driver        = lookup(docker_volume_configuration.value, "driver", null)
           driver_opts   = lookup(docker_volume_configuration.value, "driver_opts", null)
           labels        = lookup(docker_volume_configuration.value, "labels", null)
+        }
+      }
+
+      dynamic "efs_volume_configuration" {
+        for_each = lookup(volume.value, "efs_volume_configuration", [])
+        content {
+          file_system_id = lookup(efs_volume_configuration.value, "file_system_id", null)
+          root_directory = lookup(efs_volume_configuration.value, "root_directory", null)
         }
       }
     }
@@ -218,13 +238,17 @@ EOF
 }
 
 resource "aws_ecs_service" "service" {
-  depends_on                         = [null_resource.lb_exists]
-  name                               = var.name_prefix
-  cluster                            = var.cluster_id
-  task_definition                    = aws_ecs_task_definition.task.arn
-  desired_count                      = var.desired_count
-  propagate_tags                     = var.propogate_tags
-  launch_type                        = length(var.capacity_provider_strategy) == 0 ? "FARGATE" : null
+  name = var.name_prefix
+
+  cluster         = var.cluster_id
+  task_definition = aws_ecs_task_definition.task.arn
+
+  desired_count  = var.desired_count
+  propagate_tags = var.propogate_tags
+
+  platform_version = var.platform_version
+  launch_type      = length(var.capacity_provider_strategy) == 0 ? "FARGATE" : null
+
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.deployment_maximum_percent
   health_check_grace_period_seconds  = var.load_balanced ? var.health_check_grace_period_seconds : null
@@ -272,6 +296,8 @@ resource "aws_ecs_service" "service" {
       Name = "${var.name_prefix}-service"
     },
   )
+
+  depends_on = [null_resource.lb_exists]
 }
 
 # HACK: The workaround used in ecs/service does not work for some reason in this module, this fixes the following error:
