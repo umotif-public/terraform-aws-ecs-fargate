@@ -70,6 +70,10 @@ Module is to be used with Terraform > 0.12.
 Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](https://www.linkedin.com/in/marcincuber/).
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
 ## Providers
 
 | Name | Version |
@@ -80,7 +84,7 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | capacity\_provider\_strategy | (Optional) The capacity\_provider\_strategy configuration block. This is a list of maps, where each map should contain "capacity\_provider ", "weight" and "base" | `list` | `[]` | no |
 | cluster\_id | The Amazon Resource Name (ARN) that identifies the cluster. | `string` | n/a | yes |
 | container\_name | Optional name for the container to be used instead of name\_prefix. | `string` | `""` | no |
@@ -107,17 +111,17 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 | target\_group\_name | The name for the tasks target group | `string` | `""` | no |
 | task\_container\_assign\_public\_ip | Assigned public IP to the container. | `bool` | `false` | no |
 | task\_container\_command | The command that is passed to the container. | `list(string)` | `[]` | no |
-| task\_container\_cpu | Amount of CPU to reserve for the container. | `number` | n/a | yes |
+| task\_container\_cpu | Amount of CPU to reserve for the container. | `number` | `null` | no |
 | task\_container\_environment | The environment variables to pass to a container. | `map(string)` | `{}` | no |
 | task\_container\_image | The image used to start a container. | `string` | n/a | yes |
-| task\_container\_memory | The hard limit (in MiB) of memory for the container. | `number` | n/a | yes |
-| task\_container\_memory\_reservation | The soft limit (in MiB) of memory to reserve for the container. | `number` | n/a | yes |
+| task\_container\_memory | The hard limit (in MiB) of memory for the container. | `number` | `null` | no |
+| task\_container\_memory\_reservation | The soft limit (in MiB) of memory to reserve for the container. | `number` | `null` | no |
 | task\_container\_port | The port number on the container that is bound to the user-specified or automatically assigned host port | `number` | n/a | yes |
 | task\_container\_protocol | Protocol that the container exposes. | `string` | `"HTTP"` | no |
 | task\_container\_working\_directory | The working directory to run commands inside the container. | `string` | `""` | no |
 | task\_definition\_cpu | Amount of CPU to reserve for the task. | `number` | `256` | no |
 | task\_definition\_memory | The soft limit (in MiB) of memory to reserve for the task. | `number` | `512` | no |
-| task\_health\_check | An optional healthcheck definition for the task | `object({ command = list(string), interval = number, timeout = number, retries = number, startPeriod = number })` | n/a | yes |
+| task\_health\_check | An optional healthcheck definition for the task | `object({ command = list(string), interval = number, timeout = number, retries = number, startPeriod = number })` | `null` | no |
 | task\_host\_port | The port number on the container instance to reserve for your container. | `number` | `0` | no |
 | volume | (Optional) A set of volume blocks that containers in your task may use. This is a list of maps, where each map should contain "name", "host\_path", "docker\_volume\_configuration" and "efs\_volume\_configuration". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html | `list` | `[]` | no |
 | vpc\_id | The VPC ID. | `string` | n/a | yes |
@@ -153,4 +157,7 @@ See LICENSE for full details.
 
 ```bash
 brew install pre-commit terraform-docs tflint
+
+brew tap git-chglog/git-chglog
+brew install git-chglog
 ```
