@@ -88,6 +88,7 @@ No requirements.
 | capacity\_provider\_strategy | (Optional) The capacity\_provider\_strategy configuration block. This is a list of maps, where each map should contain "capacity\_provider ", "weight" and "base" | `list` | `[]` | no |
 | cluster\_id | The Amazon Resource Name (ARN) that identifies the cluster. | `string` | n/a | yes |
 | container\_name | Optional name for the container to be used instead of name\_prefix. | `string` | `""` | no |
+| create\_repository\_credentials\_iam\_policy | Set to true if you are specifying `repository_credentials` variable, it will attach IAM policy with necessary permissions to task role. | `bool` | `false` | no |
 | deployment\_controller\_type | Type of deployment controller. Valid values: CODE\_DEPLOY, ECS. | `string` | `"ECS"` | no |
 | deployment\_maximum\_percent | The upper limit of the number of running tasks that can be running in a service during a deployment | `number` | `200` | no |
 | deployment\_minimum\_healthy\_percent | The lower limit of the number of running tasks that must remain running and healthy in a service during a deployment | `number` | `50` | no |
