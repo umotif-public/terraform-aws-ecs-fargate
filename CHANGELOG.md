@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
-- update docs and add chglog
+
+
+<a name="1.3.0"></a>
+## [1.3.0] - 2020-05-04
+
+- Fix task private repository credentials variable issue ([#14](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/14))
+- Feature/updates ([#13](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/13))
 
 
 <a name="1.2.0"></a>
@@ -91,7 +97,8 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/1.2.0...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/1.3.0...HEAD
+[1.3.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/1.0.9...1.1.0
