@@ -28,7 +28,7 @@ resource "aws_ecs_cluster" "cluster" {
 
 module "ecs-farage" {
   source = "umotif-public/ecs-fargate/aws"
-  version = "~> 1.1"
+  version = "~> 1.3.0"
 
   name_prefix        = "ecs-fargate-example"
   vpc_id             = "vpc-abasdasd132"
