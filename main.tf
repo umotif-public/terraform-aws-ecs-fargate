@@ -24,11 +24,11 @@ resource "aws_iam_role_policy" "task_execution" {
 }
 
 resource "aws_iam_role_policy" "read_repository_credentials" {
-  count = length(var.repository_credentials) != 0 ? 1 : 0
+  count = var.create_repository_credentials_iam_policy ? 1 : 0
 
   name   = "${var.name_prefix}-read-repository-credentials"
   role   = aws_iam_role.execution.id
-  policy = data.aws_iam_policy_document.read_repository_credentials.json
+  policy = data.aws_iam_policy_document.read_repository_credentials[0].json
 }
 
 #####

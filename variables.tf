@@ -146,6 +146,11 @@ variable "repository_credentials_kms_key" {
   type        = string
 }
 
+variable "create_repository_credentials_iam_policy" {
+  default     = false
+  description = "Set to true if you are specifying `repository_credentials` variable, it will attach IAM policy with necessary permissions to task role."
+}
+
 variable "service_registry_arn" {
   default     = ""
   description = "ARN of aws_service_discovery_service resource"

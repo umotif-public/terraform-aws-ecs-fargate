@@ -68,6 +68,19 @@ resource "aws_security_group_rule" "task_ingress_80" {
 }
 
 #####
+# private repo credentials secretsmanager
+#####
+data "aws_kms_key" "secretsmanager_key" {
+  key_id = "alias/aws/secretsmanager"
+}
+
+resource "aws_secretsmanager_secret" "task_credentials" {
+  name = "task_repository_credentials"
+
+  kms_key_id = data.aws_kms_key.secretsmanager_key.arn
+}
+
+#####
 # ECS cluster and fargate
 #####
 resource "aws_ecs_cluster" "cluster" {
@@ -96,4 +109,8 @@ module "fargate" {
     port = "traffic-port"
     path = "/"
   }
+
+  ### To use task credentials, below paramaters are required
+  # create_repository_credentials_iam_policy = false
+  # repository_credentials                   = aws_secretsmanager_secret.task_credentials.arn
 }
