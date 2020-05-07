@@ -181,6 +181,15 @@ resource "aws_ecs_task_definition" "task" {
   %{if var.task_container_cpu != null~}
   "cpu": ${var.task_container_cpu},
   %{~endif}
+  %{if var.task_start_timeout != null~}
+  "startTimeout": ${var.task_start_timeout},
+  %{~endif}
+  %{if var.task_stop_timeout != null~}
+  "stopTimeout": ${var.task_stop_timeout},
+  %{~endif}
+  %{if var.task_mount_points != null~}
+  "mountPoints": ${jsonencode(var.task_mount_points)},
+  %{~endif}
   "environment": ${jsonencode(local.task_environment)}
 }]
 EOF
