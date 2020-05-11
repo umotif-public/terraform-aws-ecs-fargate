@@ -68,23 +68,31 @@ resource "aws_security_group_rule" "task_ingress_80" {
 }
 
 #####
-# private repo credentials secretsmanager
+# EFS
 #####
-data "aws_kms_key" "secretsmanager_key" {
-  key_id = "alias/aws/secretsmanager"
-}
+resource "aws_efs_file_system" "efs" {
+  creation_token = "efs-html"
 
-resource "aws_secretsmanager_secret" "task_credentials" {
-  name = "task_repository_credentials"
-
-  kms_key_id = data.aws_kms_key.secretsmanager_key.arn
+  tags = {
+    Name = "efs-html"
+  }
 }
 
 #####
 # ECS cluster and fargate
 #####
 resource "aws_ecs_cluster" "cluster" {
-  name = "example-ecs-cluster"
+  name               = "ecs-spot-test"
+  capacity_providers = ["FARGATE_SPOT", "FARGATE"]
+
+  default_capacity_provider_strategy {
+    capacity_provider = "FARGATE_SPOT"
+  }
+
+  setting {
+    name  = "containerInsights"
+    value = "disabled"
+  }
 }
 
 module "fargate" {
@@ -96,7 +104,7 @@ module "fargate" {
   lb_arn             = module.alb.arn
   cluster_id         = aws_ecs_cluster.cluster.id
 
-  platform_version = "1.4.0" # defaults to LATEST
+  platform_version = "1.4.0"
 
   task_container_image   = "marcincuber/2048-game:latest"
   task_definition_cpu    = 256
@@ -110,9 +118,32 @@ module "fargate" {
     path = "/"
   }
 
+  capacity_provider_strategy = [
+    {
+      capacity_provider = "FARGATE_SPOT",
+      weight            = 100
+    }
+  ]
+
   task_stop_timeout = 90
 
-  ### To use task credentials, below paramaters are required
-  # create_repository_credentials_iam_policy = false
-  # repository_credentials                   = aws_secretsmanager_secret.task_credentials.arn
+  task_mount_points = [
+    {
+      "sourceVolume"  = aws_efs_file_system.efs.creation_token,
+      "containerPath" = "/usr/share/nginx/html",
+      "readOnly"      = true
+    }
+  ]
+
+  volume = [
+    {
+      name = "efs-html",
+      efs_volume_configuration = [
+        {
+          "file_system_id" : aws_efs_file_system.efs.id,
+          "root_directory" : "/usr/share/nginx"
+        }
+      ]
+    }
+  ]
 }

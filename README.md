@@ -28,7 +28,7 @@ resource "aws_ecs_cluster" "cluster" {
 
 module "ecs-farage" {
   source = "umotif-public/ecs-fargate/aws"
-  version = "~> 1.3.0"
+  version = "~> 1.4.0"
 
   name_prefix        = "ecs-fargate-example"
   vpc_id             = "vpc-abasdasd132"
@@ -64,6 +64,7 @@ Module is to be used with Terraform > 0.12.
 
 * [ECS Fargate](https://github.com/umotif-public/terraform-aws-ecs-fargate/tree/master/examples/core)
 * [ECS Fargate Spot](https://github.com/umotif-public/terraform-aws-ecs-fargate/tree/master/examples/fargate-spot)
+* [ECS Fargate with EFS](https://github.com/umotif-public/terraform-aws-ecs-fargate/tree/master/examples/fargate-efs)
 
 ## Authors
 
@@ -124,6 +125,9 @@ No requirements.
 | task\_definition\_memory | The soft limit (in MiB) of memory to reserve for the task. | `number` | `512` | no |
 | task\_health\_check | An optional healthcheck definition for the task | `object({ command = list(string), interval = number, timeout = number, retries = number, startPeriod = number })` | `null` | no |
 | task\_host\_port | The port number on the container instance to reserve for your container. | `number` | `0` | no |
+| task\_mount\_points | The mount points for data volumes in your container. Each object inside the list requires "sourceVolume", "containerPath" and "readOnly". For more information see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html | `list(object({ sourceVolume = string, containerPath = string, readOnly = bool }))` | `null` | no |
+| task\_start\_timeout | Time duration (in seconds) to wait before giving up on resolving dependencies for a container. If this parameter is not specified, the default value of 3 minutes is used (fargate). | `number` | `null` | no |
+| task\_stop\_timeout | Time duration (in seconds) to wait before the container is forcefully killed if it doesn't exit normally on its own. The max stop timeout value is 120 seconds and if the parameter is not specified, the default value of 30 seconds is used. | `number` | `null` | no |
 | volume | (Optional) A set of volume blocks that containers in your task may use. This is a list of maps, where each map should contain "name", "host\_path", "docker\_volume\_configuration" and "efs\_volume\_configuration". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html | `list` | `[]` | no |
 | vpc\_id | The VPC ID. | `string` | n/a | yes |
 
