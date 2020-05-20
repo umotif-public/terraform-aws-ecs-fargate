@@ -3,6 +3,12 @@ variable "name_prefix" {
   type        = string
 }
 
+variable "sg_name_prefix" {
+  description = "A prefix used for Security group name."
+  type        = string
+  default     = ""
+}
+
 variable "container_name" {
   description = "Optional name for the container to be used instead of name_prefix."
   default     = ""

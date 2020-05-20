@@ -7,7 +7,7 @@ provider "aws" {
 #####
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 2.21"
+  version = "~> 2.32"
 
   name = "simple-vpc"
 
@@ -70,15 +70,15 @@ resource "aws_security_group_rule" "task_ingress_80" {
 #####
 # private repo credentials secretsmanager
 #####
-data "aws_kms_key" "secretsmanager_key" {
-  key_id = "alias/aws/secretsmanager"
-}
+# data "aws_kms_key" "secretsmanager_key" {
+#   key_id = "alias/aws/secretsmanager"
+# }
 
-resource "aws_secretsmanager_secret" "task_credentials" {
-  name = "task_repository_credentials"
+# resource "aws_secretsmanager_secret" "task_credentials" {
+#   name = "task_repository_credentials"
 
-  kms_key_id = data.aws_kms_key.secretsmanager_key.arn
-}
+#   kms_key_id = data.aws_kms_key.secretsmanager_key.arn
+# }
 
 #####
 # ECS cluster and fargate
@@ -90,7 +90,9 @@ resource "aws_ecs_cluster" "cluster" {
 module "fargate" {
   source = "../../"
 
-  name_prefix        = "ecs-fargate-example"
+  name_prefix = "ecs-fargate-example"
+  # sg_name_prefix     = "my-security-group-name" # uncomment if you want to name security group with specific name
+
   vpc_id             = module.vpc.vpc_id
   private_subnet_ids = module.vpc.public_subnets
   lb_arn             = module.alb.arn
@@ -116,3 +118,20 @@ module "fargate" {
   # create_repository_credentials_iam_policy = false
   # repository_credentials                   = aws_secretsmanager_secret.task_credentials.arn
 }
+
+
+resource "aws_security_group" "allow_sg_test" {
+  name        = "allow_sg_test"
+  description = "Allow sg inbound traffic"
+  vpc_id      = module.vpc.vpc_id
+}
+
+resource "aws_security_group_rule" "test_sg_ingress" {
+  security_group_id        = aws_security_group.allow_sg_test.id
+  type                     = "ingress"
+  protocol                 = "tcp"
+  from_port                = 3022
+  to_port                  = 3022
+  source_security_group_id = module.fargate.service_sg_id
+}
+

@@ -109,6 +109,7 @@ No requirements.
 | repository\_credentials | name or ARN of a secrets manager secret (arn:aws:secretsmanager:region:aws\_account\_id:secret:secret\_name) | `string` | `""` | no |
 | repository\_credentials\_kms\_key | key id, key ARN, alias name or alias ARN of the key that encrypted the repository credentials | `string` | `"alias/aws/secretsmanager"` | no |
 | service\_registry\_arn | ARN of aws\_service\_discovery\_service resource | `string` | `""` | no |
+| sg\_name\_prefix | A prefix used for Security group name. | `string` | `""` | no |
 | tags | A map of tags (key-value pairs) passed to resources. | `map(string)` | `{}` | no |
 | target\_group\_name | The name for the tasks target group | `string` | `""` | no |
 | task\_container\_assign\_public\_ip | Assigned public IP to the container. | `bool` | `false` | no |
