@@ -50,14 +50,20 @@ resource "aws_iam_role_policy" "log_agent" {
 #####
 resource "aws_security_group" "ecs_service" {
   vpc_id      = var.vpc_id
-  name        = "${var.name_prefix}-ecs-service-sg"
+  name_prefix = var.sg_name_prefix == "" ? "${var.name_prefix}-ecs-service-sg-" : "${var.sg_name_prefix}-"
   description = "Fargate service security group"
   tags = merge(
     var.tags,
     {
-      Name = "${var.name_prefix}-sg"
+      Name = var.sg_name_prefix == "" ? "${var.name_prefix}-ecs-service-sg" : "${var.sg_name_prefix}"
     },
   )
+
+  revoke_rules_on_delete = true
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group_rule" "egress_service" {
