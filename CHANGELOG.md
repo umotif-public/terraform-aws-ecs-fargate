@@ -7,6 +7,19 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="2.0.0"></a>
+## [2.0.0] - 2020-05-20
+
+- Improve security group creation/deletion and switch to using prefix ([#17](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/17))
+
+
+<a name="1.4.0"></a>
+## [1.4.0] - 2020-05-11
+
+- Add full support for volumes and container timeouts ([#16](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/16))
+- update CHANGELOG.md
+
+
 <a name="1.3.0"></a>
 ## [1.3.0] - 2020-05-04
 
@@ -97,7 +110,9 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/1.3.0...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/1.4.0...2.0.0
+[1.4.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/1.3.0...1.4.0
 [1.3.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/1.1.0...1.1.1

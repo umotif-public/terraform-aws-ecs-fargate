@@ -4,7 +4,7 @@ Terraform module to create AWS ECS FARGATE services. Module support both FARGATE
 
 ## Terraform versions
 
-Terraform 0.12. Pin module version to `~> v1.0`. Submit pull-requests to `master` branch.
+Terraform 0.12. Pin module version to `~> v2.0`. Submit pull-requests to `master` branch.
 
 ## Usage
 
@@ -28,7 +28,7 @@ resource "aws_ecs_cluster" "cluster" {
 
 module "ecs-farage" {
   source = "umotif-public/ecs-fargate/aws"
-  version = "~> 1.4.0"
+  version = "~> 2.0.0"
 
   name_prefix        = "ecs-fargate-example"
   vpc_id             = "vpc-abasdasd132"
