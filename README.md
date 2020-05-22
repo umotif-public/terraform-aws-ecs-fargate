@@ -73,13 +73,15 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| aws | ~> 2.63 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
+| aws | ~> 2.63 |
 | null | n/a |
 
 ## Inputs
@@ -94,6 +96,7 @@ No requirements.
 | deployment\_maximum\_percent | The upper limit of the number of running tasks that can be running in a service during a deployment | `number` | `200` | no |
 | deployment\_minimum\_healthy\_percent | The lower limit of the number of running tasks that must remain running and healthy in a service during a deployment | `number` | `50` | no |
 | desired\_count | The number of instances of the task definitions to place and keep running. | `number` | `1` | no |
+| force\_new\_deployment | Enable to force a new task deployment of the service. This can be used to update tasks to use a newer Docker image with same image/tag combination (e.g. myimage:latest), roll Fargate tasks onto a newer platform version. | `bool` | `false` | no |
 | health\_check | A health block containing health check settings for the target group. Overrides the defaults. | `map(string)` | n/a | yes |
 | health\_check\_grace\_period\_seconds | Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 7200. Only valid for services configured to use load balancers. | `number` | `300` | no |
 | lb\_arn | Arn for the LB for which the service should be attach to. | `string` | n/a | yes |
