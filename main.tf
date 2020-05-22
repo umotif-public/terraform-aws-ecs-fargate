@@ -264,6 +264,8 @@ resource "aws_ecs_service" "service" {
   platform_version = var.platform_version
   launch_type      = length(var.capacity_provider_strategy) == 0 ? "FARGATE" : null
 
+  force_new_deployment = var.force_new_deployment
+
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.deployment_maximum_percent
   health_check_grace_period_seconds  = var.load_balanced ? var.health_check_grace_period_seconds : null
