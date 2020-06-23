@@ -206,7 +206,6 @@ variable "proxy_configuration" {
 }
 
 variable "volume" {
-  type        = list
   description = "(Optional) A set of volume blocks that containers in your task may use. This is a list of maps, where each map should contain \"name\", \"host_path\", \"docker_volume_configuration\" and \"efs_volume_configuration\". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html"
   default     = []
 }
