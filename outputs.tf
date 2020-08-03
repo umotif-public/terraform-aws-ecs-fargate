@@ -50,10 +50,10 @@ output "execution_role_name" {
 
 output "task_definition_arn" {
   description = "The Amazon Resource Name (ARN) of the task definition created"
-  value = aws_ecs_task_definition.task.arn
+  value       = aws_ecs_task_definition.task.arn
 }
 
 output "task_definition_name" {
   description = "The name of the task definition created"
-  value = aws_ecs_task_definition.task.arn
+  value       = aws_ecs_task_definition.task.arn
 }
