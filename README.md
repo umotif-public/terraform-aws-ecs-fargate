@@ -26,7 +26,7 @@ resource "aws_ecs_cluster" "cluster" {
   }
 }
 
-module "ecs-farage" {
+module "ecs-fargate" {
   source = "umotif-public/ecs-fargate/aws"
   version = "~> 4.0.0"
 
