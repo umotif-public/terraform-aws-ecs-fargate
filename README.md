@@ -4,7 +4,7 @@ Terraform module to create AWS ECS FARGATE services. Module support both FARGATE
 
 ## Terraform versions
 
-Terraform 0.12. Pin module version to `~> v3.0`. Submit pull-requests to `master` branch.
+Terraform 0.12. Pin module version to `~> v4.0`. Submit pull-requests to `master` branch.
 
 ## Usage
 
@@ -28,7 +28,7 @@ resource "aws_ecs_cluster" "cluster" {
 
 module "ecs-farage" {
   source = "umotif-public/ecs-fargate/aws"
-  version = "~> 3.0.0"
+  version = "~> 4.0.0"
 
   name_prefix        = "ecs-fargate-example"
   vpc_id             = "vpc-abasdasd132"
@@ -75,13 +75,13 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 
 | Name | Version |
 |------|---------|
-| aws | ~> 2.63 |
+| aws | ~> 2.68 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | ~> 2.63 |
+| aws | ~> 2.68 |
 | null | n/a |
 
 ## Inputs
@@ -139,12 +139,16 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 
 | Name | Description |
 |------|-------------|
+| execution\_role\_arn | The Amazon Resource Name (ARN) specifying the ECS execution role. |
+| execution\_role\_name | The name of the ECS execution role. |
 | log\_group\_name | The name of the Cloudwatch log group for the task. |
 | service\_arn | The Amazon Resource Name (ARN) that identifies the ECS service. |
 | service\_name | The name of the service. |
 | service\_sg\_id | The Amazon Resource Name (ARN) that identifies the service security group. |
 | target\_group\_arn | The ARN of the Target Group used by Load Balancer. |
 | target\_group\_name | The Name of the Target Group used by Load Balancer. |
+| task\_definition\_arn | The Amazon Resource Name (ARN) of the task definition created |
+| task\_definition\_name | The name of the task definition created |
 | task\_role\_arn | The Amazon Resource Name (ARN) specifying the ECS service role. |
 | task\_role\_name | The name of the Fargate task service role. |
 
