@@ -20,6 +20,7 @@ data "aws_iam_policy_document" "task_permissions" {
 
     resources = [
       aws_cloudwatch_log_group.main.arn,
+      "${aws_cloudwatch_log_group.main.arn}:*"
     ]
 
     actions = [
