@@ -55,7 +55,7 @@ resource "aws_security_group" "ecs_service" {
   tags = merge(
     var.tags,
     {
-      Name = var.sg_name_prefix == "" ? "${var.name_prefix}-ecs-service-sg" : "${var.sg_name_prefix}"
+      Name = var.sg_name_prefix == "" ? "${var.name_prefix}-ecs-service-sg" : var.sg_name_prefix
     },
   )
 
