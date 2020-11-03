@@ -5,7 +5,25 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
-- Update module versions to support v3 provider
+- Add upgrades
+
+
+<a name="4.0.3"></a>
+## [4.0.3] - 2020-10-13
+
+- Update main.tf ([#23](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/23))
+
+
+<a name="4.0.2"></a>
+## [4.0.2] - 2020-10-02
+
+- Fix log group permissions ([#22](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/22))
+
+
+<a name="4.0.1"></a>
+## [4.0.1] - 2020-08-05
+
+- Feature/v3 provider support ([#21](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/21))
 
 
 <a name="4.0.0"></a>
@@ -137,7 +155,10 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/4.0.0...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/4.0.3...HEAD
+[4.0.3]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/4.0.2...4.0.3
+[4.0.2]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/4.0.1...4.0.2
+[4.0.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/3.0.2...4.0.0
 [3.0.2]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/3.0.0...3.0.1

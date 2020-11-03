@@ -80,12 +80,14 @@ resource "aws_security_group_rule" "egress_service" {
 # Load Balancer Target group
 #####
 resource "aws_lb_target_group" "task" {
-  count       = var.load_balanced ? 1 : 0
+  count = var.load_balanced ? 1 : 0
+
   name        = var.target_group_name != "" ? var.target_group_name : "${var.name_prefix}-target-${var.task_container_port}"
   vpc_id      = var.vpc_id
   protocol    = var.task_container_protocol
   port        = var.task_container_port
   target_type = "ip"
+
   dynamic "health_check" {
     for_each = [var.health_check]
     content {
@@ -274,7 +276,8 @@ resource "aws_ecs_service" "service" {
   platform_version = var.platform_version
   launch_type      = length(var.capacity_provider_strategy) == 0 ? "FARGATE" : null
 
-  force_new_deployment = var.force_new_deployment
+  force_new_deployment  = var.force_new_deployment
+  wait_for_steady_state = var.wait_for_steady_state
 
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.deployment_maximum_percent
@@ -323,16 +326,4 @@ resource "aws_ecs_service" "service" {
       Name = "${var.name_prefix}-service"
     },
   )
-
-  depends_on = [null_resource.lb_exists]
-}
-
-# HACK: The workaround used in ecs/service does not work for some reason in this module, this fixes the following error:
-# "The target group with targetGroupArn arn:aws:elasticloadbalancing:... does not have an associated load balancer."
-# see https://github.com/hashicorp/terraform/issues/12634.
-# Service depends on this resources which prevents it from being created until the LB is ready
-resource "null_resource" "lb_exists" {
-  triggers = {
-    alb_name = var.lb_arn
-  }
 }
