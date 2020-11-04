@@ -7,7 +7,7 @@ provider "aws" {
 #####
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 2.21"
+  version = "~> 2.63"
 
   name = "simple-vpc"
 
@@ -110,5 +110,9 @@ module "fargate" {
       capacity_provider = "FARGATE_SPOT",
       weight            = 100
     }
+  ]
+
+  depends_on = [
+    module.alb
   ]
 }

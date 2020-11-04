@@ -7,7 +7,7 @@ provider "aws" {
 #####
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 2.32"
+  version = "~> 2.63"
 
   name = "simple-vpc"
 
@@ -98,6 +98,8 @@ module "fargate" {
   lb_arn             = module.alb.arn
   cluster_id         = aws_ecs_cluster.cluster.id
 
+  wait_for_steady_state = true
+
   platform_version = "1.4.0" # defaults to LATEST
 
   task_container_image   = "marcincuber/2048-game:latest"
@@ -113,6 +115,10 @@ module "fargate" {
   }
 
   task_stop_timeout = 90
+
+  depends_on = [
+    module.alb
+  ]
 
   ### To use task credentials, below paramaters are required
   # create_repository_credentials_iam_policy = false

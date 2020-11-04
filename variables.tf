@@ -264,3 +264,8 @@ variable "force_new_deployment" {
   default     = false
 }
 
+variable "wait_for_steady_state" {
+  type        = bool
+  description = "If true, Terraform will wait for the service to reach a steady state (like aws ecs wait services-stable) before continuing."
+  default     = false
+}

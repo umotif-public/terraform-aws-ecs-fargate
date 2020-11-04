@@ -4,7 +4,7 @@ Terraform module to create AWS ECS FARGATE services. Module support both FARGATE
 
 ## Terraform versions
 
-Terraform 0.12. Pin module version to `~> v4.0`. Submit pull-requests to `master` branch.
+Terraform 0.13. Pin module version to `~> v5.0`. Submit pull-requests to `master` branch.
 
 ## Usage
 
@@ -28,7 +28,7 @@ resource "aws_ecs_cluster" "cluster" {
 
 module "ecs-fargate" {
   source = "umotif-public/ecs-fargate/aws"
-  version = "~> 4.0.0"
+  version = "~> 5.0.0"
 
   name_prefix        = "ecs-fargate-example"
   vpc_id             = "vpc-abasdasd132"
@@ -58,7 +58,7 @@ module "ecs-fargate" {
 
 ## Assumptions
 
-Module is to be used with Terraform > 0.12.
+Module is to be used with Terraform > 0.13.
 
 ## Examples
 
@@ -75,15 +75,14 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.6, < 0.14 |
-| aws | >= 2.68, < 4.0 |
+| terraform | >= 0.13.0 |
+| aws | >= 3.13 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 2.68, < 4.0 |
-| null | n/a |
+| aws | >= 3.13 |
 
 ## Inputs
 
@@ -135,6 +134,7 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 | task\_stop\_timeout | Time duration (in seconds) to wait before the container is forcefully killed if it doesn't exit normally on its own. The max stop timeout value is 120 seconds and if the parameter is not specified, the default value of 30 seconds is used. | `number` | `null` | no |
 | volume | (Optional) A set of volume blocks that containers in your task may use. This is a list of maps, where each map should contain "name", "host\_path", "docker\_volume\_configuration" and "efs\_volume\_configuration". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html | `list` | `[]` | no |
 | vpc\_id | The VPC ID. | `string` | n/a | yes |
+| wait\_for\_steady\_state | If true, Terraform will wait for the service to reach a steady state (like aws ecs wait services-stable) before continuing. | `bool` | `false` | no |
 
 ## Outputs
 
