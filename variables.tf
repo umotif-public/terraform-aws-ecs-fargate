@@ -98,6 +98,12 @@ variable "task_container_environment" {
   type        = map(string)
 }
 
+variable "task_container_secrets" {
+  description = "The secrets variables to pass to a container."
+  default     = null
+  type        = map(string)
+}
+
 variable "log_retention_in_days" {
   description = "Number of days the logs will be retained in CloudWatch."
   default     = 30
