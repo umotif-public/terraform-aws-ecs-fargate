@@ -101,7 +101,7 @@ variable "task_container_environment" {
 variable "task_container_secrets" {
   description = "The secrets variables to pass to a container."
   default     = null
-  type        = map(string)
+  type        = list(map(string))
 }
 
 variable "log_retention_in_days" {
