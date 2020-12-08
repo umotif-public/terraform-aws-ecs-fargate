@@ -198,10 +198,10 @@ resource "aws_ecs_task_definition" "task" {
   %{if var.task_mount_points != null~}
   "mountPoints": ${jsonencode(var.task_mount_points)},
   %{~endif}
-  "environment": ${jsonencode(local.task_environment)}
   %{if var.task_container_secrets != null~}
-  "secrets": ${jsonencode(var.task_container_secrets)}
+  "secrets": ${jsonencode(var.task_container_secrets)},
   %{~endif}
+  "environment": ${jsonencode(local.task_environment)}
 }]
 EOF
 
