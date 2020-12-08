@@ -200,7 +200,7 @@ resource "aws_ecs_task_definition" "task" {
   %{~endif}
   "environment": ${jsonencode(local.task_environment)}
   %{if var.task_container_memory != null~}
-  "secrets": ${jsonencode(var.secrets)}
+  "secrets": ${jsonencode(var.task_container_secrets)}
   %{~endif}
 }]
 EOF
