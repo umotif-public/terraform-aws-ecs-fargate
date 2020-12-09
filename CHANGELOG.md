@@ -5,7 +5,19 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
-- Add upgrades
+- Add secrets to task defintion ([#28](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/28))
+
+
+<a name="5.0.1"></a>
+## [5.0.1] - 2020-12-04
+
+- Potential fix to the issue ([#26](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/26))
+
+
+<a name="5.0.0"></a>
+## [5.0.0] - 2020-11-04
+
+- Upgrades ([#24](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/24))
 
 
 <a name="4.0.3"></a>
@@ -155,7 +167,9 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/4.0.3...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/5.0.1...HEAD
+[5.0.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/5.0.0...5.0.1
+[5.0.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/4.0.3...5.0.0
 [4.0.3]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/4.0.2...4.0.3
 [4.0.2]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/4.0.0...4.0.1

@@ -28,7 +28,7 @@ resource "aws_ecs_cluster" "cluster" {
 
 module "ecs-fargate" {
   source = "umotif-public/ecs-fargate/aws"
-  version = "~> 5.0.0"
+  version = "~> 5.1.0"
 
   name_prefix        = "ecs-fargate-example"
   vpc_id             = "vpc-abasdasd132"
@@ -88,7 +88,7 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| capacity\_provider\_strategy | (Optional) The capacity\_provider\_strategy configuration block. This is a list of maps, where each map should contain "capacity\_provider ", "weight" and "base" | `list` | `[]` | no |
+| capacity\_provider\_strategy | (Optional) The capacity\_provider\_strategy configuration block. This is a list of maps, where each map should contain "capacity\_provider ", "weight" and "base" | `list(any)` | `[]` | no |
 | cluster\_id | The Amazon Resource Name (ARN) that identifies the cluster. | `string` | n/a | yes |
 | container\_name | Optional name for the container to be used instead of name\_prefix. | `string` | `""` | no |
 | create\_repository\_credentials\_iam\_policy | Set to true if you are specifying `repository_credentials` variable, it will attach IAM policy with necessary permissions to task role. | `bool` | `false` | no |
@@ -104,11 +104,11 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 | log\_retention\_in\_days | Number of days the logs will be retained in CloudWatch. | `number` | `30` | no |
 | logs\_kms\_key | The KMS key ARN to use to encrypt container logs. | `string` | `""` | no |
 | name\_prefix | A prefix used for naming resources. | `string` | n/a | yes |
-| placement\_constraints | (Optional) A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement\_constraints is 10. This is a list of maps, where each map should contain "type" and "expression" | `list` | `[]` | no |
+| placement\_constraints | (Optional) A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement\_constraints is 10. This is a list of maps, where each map should contain "type" and "expression" | `list(any)` | `[]` | no |
 | platform\_version | The platform version on which to run your service. Only applicable for launch\_type set to FARGATE. | `string` | `"LATEST"` | no |
 | private\_subnet\_ids | A list of private subnets inside the VPC | `list(string)` | n/a | yes |
 | propogate\_tags | Specifies whether to propagate the tags from the task definition or the service to the tasks. The valid values are SERVICE and TASK\_DEFINITION. | `string` | `"TASK_DEFINITION"` | no |
-| proxy\_configuration | (Optional) The proxy configuration details for the App Mesh proxy. This is a list of maps, where each map should contain "container\_name", "properties" and "type" | `list` | `[]` | no |
+| proxy\_configuration | (Optional) The proxy configuration details for the App Mesh proxy. This is a list of maps, where each map should contain "container\_name", "properties" and "type" | `list(any)` | `[]` | no |
 | repository\_credentials | name or ARN of a secrets manager secret (arn:aws:secretsmanager:region:aws\_account\_id:secret:secret\_name) | `string` | `""` | no |
 | repository\_credentials\_kms\_key | key id, key ARN, alias name or alias ARN of the key that encrypted the repository credentials | `string` | `"alias/aws/secretsmanager"` | no |
 | service\_registry\_arn | ARN of aws\_service\_discovery\_service resource | `string` | `""` | no |
@@ -124,6 +124,7 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 | task\_container\_memory\_reservation | The soft limit (in MiB) of memory to reserve for the container. | `number` | `null` | no |
 | task\_container\_port | The port number on the container that is bound to the user-specified or automatically assigned host port | `number` | n/a | yes |
 | task\_container\_protocol | Protocol that the container exposes. | `string` | `"HTTP"` | no |
+| task\_container\_secrets | The secrets variables to pass to a container. | `list(map(string))` | `null` | no |
 | task\_container\_working\_directory | The working directory to run commands inside the container. | `string` | `""` | no |
 | task\_definition\_cpu | Amount of CPU to reserve for the task. | `number` | `256` | no |
 | task\_definition\_memory | The soft limit (in MiB) of memory to reserve for the task. | `number` | `512` | no |
