@@ -1,3 +1,5 @@
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/umotif-public/terraform-aws-ecs-fargate?style=social)
+
 # terraform-aws-ecs-fargate
 
 Terraform module to create AWS ECS FARGATE services. Module support both FARGATE and FARGATE-SPOT capacity provider settings.
