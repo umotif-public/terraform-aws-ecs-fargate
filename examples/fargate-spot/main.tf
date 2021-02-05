@@ -5,19 +5,12 @@ provider "aws" {
 #####
 # VPC and subnets
 #####
-module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 2.63"
+data "aws_vpc" "default" {
+  default = true
+}
 
-  name = "simple-vpc"
-
-  cidr = "10.0.0.0/16"
-
-  azs             = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
-  private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
-
-  enable_nat_gateway = false
+data "aws_subnet_ids" "all" {
+  vpc_id = data.aws_vpc.default.id
 }
 
 #####
@@ -25,13 +18,13 @@ module "vpc" {
 #####
 module "alb" {
   source  = "umotif-public/alb/aws"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   name_prefix        = "alb-example"
   load_balancer_type = "application"
   internal           = false
-  vpc_id             = module.vpc.vpc_id
-  subnets            = module.vpc.public_subnets
+  vpc_id             = data.aws_vpc.default.id
+  subnets            = data.aws_subnet_ids.all.ids
 }
 
 resource "aws_lb_listener" "alb_80" {
@@ -41,7 +34,7 @@ resource "aws_lb_listener" "alb_80" {
 
   default_action {
     type             = "forward"
-    target_group_arn = module.fargate.target_group_arn
+    target_group_arn = module.fargate.target_group_arn[0]
   }
 }
 
@@ -88,9 +81,9 @@ module "fargate" {
   source = "../../"
 
   name_prefix        = "ecs-fargate-example"
-  vpc_id             = module.vpc.vpc_id
-  private_subnet_ids = module.vpc.public_subnets
-  lb_arn             = module.alb.arn
+  vpc_id             = data.aws_vpc.default.id
+  private_subnet_ids = data.aws_subnet_ids.all.ids
+
   cluster_id         = aws_ecs_cluster.cluster.id
 
   task_container_image   = "marcincuber/2048-game:latest"
@@ -99,6 +92,12 @@ module "fargate" {
 
   task_container_port             = 80
   task_container_assign_public_ip = true
+
+  target_groups = [
+    {
+      container_port = 80
+    }
+  ]
 
   health_check = {
     port = "traffic-port"
