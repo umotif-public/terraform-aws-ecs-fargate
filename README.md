@@ -1,8 +1,9 @@
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/umotif-public/terraform-aws-ecs-fargate?style=social)
+<!-- markdownlint-disable MD041 -->
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/umotif-public/terraform-aws-ecs-fargate?style=social)](https://github.com/umotif-public/terraform-aws-ecs-fargate/releases/latest)
 
-# terraform-aws-ecs-fargate
+# Terraform AWS ECS Fargate
 
-Terraform module to create AWS ECS FARGATE services. Module support both FARGATE and FARGATE-SPOT capacity provider settings.
+Terraform module to create [AWS ECS FARGATE](https://aws.amazon.com/fargate/) services. Module supports both `FARGATE` and `FARGATE-SPOT` capacity provider settings.
 
 ## Terraform versions
 
@@ -73,6 +74,7 @@ Module is to be used with Terraform > 0.13.
 * [ECS Fargate](https://github.com/umotif-public/terraform-aws-ecs-fargate/tree/master/examples/core)
 * [ECS Fargate Spot](https://github.com/umotif-public/terraform-aws-ecs-fargate/tree/master/examples/fargate-spot)
 * [ECS Fargate with EFS](https://github.com/umotif-public/terraform-aws-ecs-fargate/tree/master/examples/fargate-efs)
+* [ECS Service with multiple target groups](https://github.com/umotif-public/terraform-aws-ecs-fargate/tree/master/examples/multiple-target-groups)
 
 ## Authors
 
