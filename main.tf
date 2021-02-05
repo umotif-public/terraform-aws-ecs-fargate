@@ -312,7 +312,7 @@ resource "aws_ecs_service" "service" {
   }
 
   deployment_controller {
-    type = var.deployment_controller_type # CODE_DEPLOY or ECS
+    type = var.deployment_controller_type # CODE_DEPLOY or ECS or EXTERNAL
   }
 
   dynamic "service_registries" {
