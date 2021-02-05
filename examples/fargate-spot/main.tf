@@ -84,7 +84,7 @@ module "fargate" {
   vpc_id             = data.aws_vpc.default.id
   private_subnet_ids = data.aws_subnet_ids.all.ids
 
-  cluster_id         = aws_ecs_cluster.cluster.id
+  cluster_id = aws_ecs_cluster.cluster.id
 
   task_container_image   = "marcincuber/2048-game:latest"
   task_definition_cpu    = 256

@@ -130,10 +130,10 @@ module "fargate" {
   vpc_id             = data.aws_vpc.default.id
   private_subnet_ids = data.aws_subnet_ids.all.ids
   cluster_id         = aws_ecs_cluster.cluster.id
-  target_groups      = [
+  target_groups = [
     {
-      target_group_name  = "external-alb"
-      container_port     = 80
+      target_group_name = "external-alb"
+      container_port    = 80
     },
     {
       target_group_name = "internal-alb"

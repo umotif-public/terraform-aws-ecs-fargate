@@ -100,14 +100,13 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 | cluster\_id | The Amazon Resource Name (ARN) that identifies the cluster. | `string` | n/a | yes |
 | container\_name | Optional name for the container to be used instead of name\_prefix. | `string` | `""` | no |
 | create\_repository\_credentials\_iam\_policy | Set to true if you are specifying `repository_credentials` variable, it will attach IAM policy with necessary permissions to task role. | `bool` | `false` | no |
-| deployment\_controller\_type | Type of deployment controller. Valid values: CODE\_DEPLOY, ECS. | `string` | `"ECS"` | no |
+| deployment\_controller\_type | Type of deployment controller. Valid values: CODE\_DEPLOY, ECS, EXTERNAL. Default: ECS. | `string` | `"ECS"` | no |
 | deployment\_maximum\_percent | The upper limit of the number of running tasks that can be running in a service during a deployment | `number` | `200` | no |
 | deployment\_minimum\_healthy\_percent | The lower limit of the number of running tasks that must remain running and healthy in a service during a deployment | `number` | `50` | no |
 | desired\_count | The number of instances of the task definitions to place and keep running. | `number` | `1` | no |
 | force\_new\_deployment | Enable to force a new task deployment of the service. This can be used to update tasks to use a newer Docker image with same image/tag combination (e.g. myimage:latest), roll Fargate tasks onto a newer platform version. | `bool` | `false` | no |
 | health\_check | A health block containing health check settings for the target group. Overrides the defaults. | `map(string)` | n/a | yes |
 | health\_check\_grace\_period\_seconds | Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 7200. Only valid for services configured to use load balancers. | `number` | `300` | no |
-| lb\_arn | Arn for the LB for which the service should be attach to. | `string` | n/a | yes |
 | load\_balanced | Whether the task should be loadbalanced. | `bool` | `true` | no |
 | log\_retention\_in\_days | Number of days the logs will be retained in CloudWatch. | `number` | `30` | no |
 | logs\_kms\_key | The KMS key ARN to use to encrypt container logs. | `string` | `""` | no |
@@ -122,7 +121,7 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 | service\_registry\_arn | ARN of aws\_service\_discovery\_service resource | `string` | `""` | no |
 | sg\_name\_prefix | A prefix used for Security group name. | `string` | `""` | no |
 | tags | A map of tags (key-value pairs) passed to resources. | `map(string)` | `{}` | no |
-| target\_group\_name | The name for the tasks target group | `string` | `""` | no |
+| target\_groups | The name of the target groups to associate with ecs service | `any` | `[]` | no |
 | task\_container\_assign\_public\_ip | Assigned public IP to the container. | `bool` | `false` | no |
 | task\_container\_command | The command that is passed to the container. | `list(string)` | `[]` | no |
 | task\_container\_cpu | Amount of CPU to reserve for the container. | `number` | `null` | no |
