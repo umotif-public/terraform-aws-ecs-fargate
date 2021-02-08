@@ -169,7 +169,6 @@ module "fargate" {
   # repository_credentials                   = aws_secretsmanager_secret.task_credentials.arn
 }
 
-
 resource "aws_security_group" "allow_sg_test" {
   name        = "allow_sg_test"
   description = "Allow sg inbound traffic"

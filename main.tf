@@ -80,12 +80,12 @@ resource "aws_security_group_rule" "egress_service" {
 # Load Balancer Target group
 #####
 resource "aws_lb_target_group" "task" {
-  count = var.load_balanced ? length(var.target_groups) : 0
+  for_each = var.load_balanced ? { for tg in var.target_groups : tg.target_group_name => tg } : {}
 
-  name        = lookup(var.target_groups[count.index], "target_group_name", "") != "" ? var.target_groups[count.index]["target_group_name"] : "${var.name_prefix}-target-${var.task_container_port}"
+  name        = lookup(each.value, "target_group_name")
   vpc_id      = var.vpc_id
   protocol    = var.task_container_protocol
-  port        = var.task_container_port
+  port        = lookup(each.value, "container_port", var.task_container_port)
   target_type = "ip"
 
 
@@ -111,7 +111,7 @@ resource "aws_lb_target_group" "task" {
   tags = merge(
     var.tags,
     {
-      Name = lookup(var.target_groups[count.index], "target_group_name", "") != "" ? var.target_groups[count.index]["target_group_name"] : "${var.name_prefix}-target-${var.task_container_port}"
+      Name = lookup(each.value, "target_group_name")
     },
   )
 }
@@ -307,7 +307,7 @@ resource "aws_ecs_service" "service" {
     content {
       container_name   = var.container_name != "" ? var.container_name : var.name_prefix
       container_port   = lookup(load_balancer.value, "container_port", var.task_container_port)
-      target_group_arn = aws_lb_target_group.task[index(var.target_groups, load_balancer.value)].arn
+      target_group_arn = aws_lb_target_group.task[lookup(load_balancer.value, "target_group_name")].arn
     }
   }
 
