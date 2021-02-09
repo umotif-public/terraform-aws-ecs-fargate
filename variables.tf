@@ -40,11 +40,6 @@ variable "task_container_image" {
   type        = string
 }
 
-variable "lb_arn" {
-  description = "Arn for the LB for which the service should be attach to."
-  type        = string
-}
-
 variable "desired_count" {
   description = "The number of instances of the task definitions to place and keep running."
   default     = 1
@@ -142,7 +137,7 @@ variable "deployment_maximum_percent" {
 variable "deployment_controller_type" {
   default     = "ECS"
   type        = string
-  description = "Type of deployment controller. Valid values: CODE_DEPLOY, ECS."
+  description = "Type of deployment controller. Valid values: CODE_DEPLOY, ECS, EXTERNAL. Default: ECS."
 }
 
 # https://docs.aws.amazon.com/AmazonECS/latest/developerguide/private-auth.html
@@ -175,10 +170,10 @@ variable "propogate_tags" {
   default     = "TASK_DEFINITION"
 }
 
-variable "target_group_name" {
-  type        = string
-  default     = ""
-  description = "The name for the tasks target group"
+variable "target_groups" {
+  type        = any
+  default     = []
+  description = "The name of the target groups to associate with ecs service"
 }
 
 variable "load_balanced" {
@@ -194,19 +189,19 @@ variable "logs_kms_key" {
 }
 
 variable "capacity_provider_strategy" {
-  type        = list
+  type        = list(any)
   description = "(Optional) The capacity_provider_strategy configuration block. This is a list of maps, where each map should contain \"capacity_provider \", \"weight\" and \"base\""
   default     = []
 }
 
 variable "placement_constraints" {
-  type        = list
+  type        = list(any)
   description = "(Optional) A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10. This is a list of maps, where each map should contain \"type\" and \"expression\""
   default     = []
 }
 
 variable "proxy_configuration" {
-  type        = list
+  type        = list(any)
   description = "(Optional) The proxy configuration details for the App Mesh proxy. This is a list of maps, where each map should contain \"container_name\", \"properties\" and \"type\""
   default     = []
 }
