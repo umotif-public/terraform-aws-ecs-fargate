@@ -95,7 +95,8 @@ module "fargate" {
 
   target_groups = [
     {
-      container_port = 80
+      target_group_name = "spot-example"
+      container_port    = 80
     }
   ]
 
