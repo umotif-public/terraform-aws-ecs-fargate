@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+
+<a name="6.0.0"></a>
+## [6.0.0] - 2021-02-09
+
+- Add missing 'target_group_name' parameter in examples ([#31](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/31))
+- Add support for registering multiple target groups with a service ([#29](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/29))
+- Update README.md
+
+
+<a name="5.1.0"></a>
+## [5.1.0] - 2020-12-09
+
+- update docs
 - Add secrets to task defintion ([#28](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/28))
 
 
@@ -167,7 +181,9 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/5.0.1...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.0.0...HEAD
+[6.0.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/5.1.0...6.0.0
+[5.1.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/5.0.1...5.1.0
 [5.0.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/4.0.3...5.0.0
 [4.0.3]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/4.0.2...4.0.3

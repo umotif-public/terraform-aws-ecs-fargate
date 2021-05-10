@@ -270,3 +270,9 @@ variable "wait_for_steady_state" {
   description = "If true, Terraform will wait for the service to reach a steady state (like aws ecs wait services-stable) before continuing."
   default     = false
 }
+
+variable "enable_execute_command" {
+  type        = bool
+  description = "Specifies whether to enable Amazon ECS Exec for the tasks within the service."
+  default     = true
+}
