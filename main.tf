@@ -45,6 +45,14 @@ resource "aws_iam_role_policy" "log_agent" {
   policy = data.aws_iam_policy_document.task_permissions.json
 }
 
+resource "aws_iam_role_policy" "ecs_exec_inline_policy" {
+  count = var.enable_execute_command ? 1 : 0
+
+  name   = "${var.name_prefix}-ecs-exec-permissions"
+  role   = aws_iam_role.task.id
+  policy = data.aws_iam_policy_document.task_ecs_exec_policy[0].json
+}
+
 #####
 # Security groups
 #####

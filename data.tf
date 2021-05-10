@@ -30,6 +30,24 @@ data "aws_iam_policy_document" "task_permissions" {
   }
 }
 
+# Task permissions to allow ECS Exec command
+data "aws_iam_policy_document" "task_ecs_exec_policy" {
+  count = var.enable_execute_command ? 1 : 0
+
+  statement {
+    effect = "Allow"
+
+    resources = ["*"]
+
+    actions = [
+      "ssmmessages:CreateControlChannel",
+      "ssmmessages:CreateDataChannel",
+      "ssmmessages:OpenControlChannel",
+      "ssmmessages:OpenDataChannel"
+    ]
+  }
+}
+
 # Task ecr privileges
 data "aws_iam_policy_document" "task_execution_permissions" {
   statement {
