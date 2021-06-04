@@ -2,11 +2,12 @@
 # Cloudwatch
 #####
 resource "aws_cloudwatch_log_group" "main" {
-  name              = var.name_prefix
-  retention_in_days = var.log_retention_in_days
+  name = var.name_prefix
 
-  kms_key_id = var.logs_kms_key
-  tags       = var.tags
+  retention_in_days = var.log_retention_in_days
+  kms_key_id        = var.logs_kms_key
+
+  tags = var.tags
 }
 
 #####
@@ -15,6 +16,8 @@ resource "aws_cloudwatch_log_group" "main" {
 resource "aws_iam_role" "execution" {
   name               = "${var.name_prefix}-task-execution-role"
   assume_role_policy = data.aws_iam_policy_document.task_assume.json
+
+  tags = var.tags
 }
 
 resource "aws_iam_role_policy" "task_execution" {
@@ -37,6 +40,8 @@ resource "aws_iam_role_policy" "read_repository_credentials" {
 resource "aws_iam_role" "task" {
   name               = "${var.name_prefix}-task-role"
   assume_role_policy = data.aws_iam_policy_document.task_assume.json
+
+  tags = var.tags
 }
 
 resource "aws_iam_role_policy" "log_agent" {
