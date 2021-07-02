@@ -150,74 +150,7 @@ resource "aws_ecs_task_definition" "task" {
   memory                   = var.task_definition_memory
   task_role_arn            = aws_iam_role.task.arn
 
-  container_definitions = <<EOF
-[{
-  "name": "${var.container_name != "" ? var.container_name : var.name_prefix}",
-  "image": "${var.task_container_image}",
-  %{if var.repository_credentials != ""~}
-  "repositoryCredentials": {
-    "credentialsParameter": "${var.repository_credentials}"
-  },
-  %{~endif}
-  "essential": true,
-  %{if var.task_container_port != 0 || var.task_host_port != 0~}
-  "portMappings": [
-    {
-      %{if var.task_host_port != 0~}
-      "hostPort": ${var.task_host_port},
-      %{~endif}
-      %{if var.task_container_port != 0~}
-      "containerPort": ${var.task_container_port},
-      %{~endif}
-      "protocol":"tcp"
-    }
-  ],
-  %{~endif}
-  "logConfiguration": {
-    "logDriver": "awslogs",
-    "options": {
-      "awslogs-group": "${aws_cloudwatch_log_group.main.name}",
-      "awslogs-region": "${data.aws_region.current.name}",
-      "awslogs-stream-prefix": "container"
-    }
-  },
-  %{if var.task_health_check != null~}
-  "healthcheck": {
-    "command": ${jsonencode(var.task_health_check.command)},
-    "interval": ${var.task_health_check.interval},
-    "timeout": ${var.task_health_check.timeout},
-    "retries": ${var.task_health_check.retries},
-    "startPeriod": ${var.task_health_check.startPeriod}
-  },
-  %{~endif}
-  "command": ${jsonencode(var.task_container_command)},
-  %{if var.task_container_working_directory != ""~}
-  "workingDirectory": ${var.task_container_working_directory},
-  %{~endif}
-  %{if var.task_container_memory != null~}
-  "memory": ${var.task_container_memory},
-  %{~endif}
-  %{if var.task_container_memory_reservation != null~}
-  "memoryReservation": ${var.task_container_memory_reservation},
-  %{~endif}
-  %{if var.task_container_cpu != null~}
-  "cpu": ${var.task_container_cpu},
-  %{~endif}
-  %{if var.task_start_timeout != null~}
-  "startTimeout": ${var.task_start_timeout},
-  %{~endif}
-  %{if var.task_stop_timeout != null~}
-  "stopTimeout": ${var.task_stop_timeout},
-  %{~endif}
-  %{if var.task_mount_points != null~}
-  "mountPoints": ${jsonencode(var.task_mount_points)},
-  %{~endif}
-  %{if var.task_container_secrets != null~}
-  "secrets": ${jsonencode(var.task_container_secrets)},
-  %{~endif}
-  "environment": ${jsonencode(local.task_environment)}
-}]
-EOF
+  container_definitions =  ["${file(container_definitions.json)}"]
 
   dynamic "placement_constraints" {
     for_each = var.placement_constraints
