@@ -1,4 +1,5 @@
-{
+[
+  {
   "name": "${var.container_name != "" ? var.container_name : var.name_prefix}",
   "image": "${var.task_container_image}",
   %{if var.repository_credentials != ""~}
@@ -64,3 +65,4 @@
   %{~endif}
   "environment": ${jsonencode(local.task_environment)}
 }
+]
