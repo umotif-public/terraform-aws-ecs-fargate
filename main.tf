@@ -141,10 +141,6 @@ locals {
   ]
 }
 
-data "aws_ecs_task_definition" "task" {
-  task_definition = aws_ecs_task_definition.task.family
-}
-
 resource "aws_ecs_task_definition" "task" {
   family                   = var.name_prefix
   execution_role_arn       = aws_iam_role.execution.arn
