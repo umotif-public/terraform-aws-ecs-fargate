@@ -91,3 +91,7 @@ data "aws_iam_policy_document" "read_repository_credentials" {
     ]
   }
 }
+
+data "aws_ecs_task_definition" "task" {
+  task_definition = aws_ecs_task_definition.task.family
+}

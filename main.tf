@@ -285,7 +285,7 @@ resource "aws_ecs_service" "service" {
   name = var.name_prefix
 
   cluster         = var.cluster_id
-  task_definition = aws_ecs_task_definition.task.arn
+  task_definition = "${aws_ecs_task_definition.task.family}:${max(aws_ecs_task_definition.task.revision, data.aws_ecs_task_definition.task.revision)}"
 
   desired_count  = var.desired_count
   propagate_tags = var.propogate_tags
