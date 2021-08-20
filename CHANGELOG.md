@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
+- Make deregistration_delay attribute customizable for ALB Target Groups
+
+
+<a name="6.2.1"></a>
+## [6.2.1] - 2021-07-30
+
+- Add support to pick latest task definition ([#41](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/41))
+
+
+<a name="6.2.0"></a>
+## [6.2.0] - 2021-06-04
+
+- add tags iam role ([#34](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/34))
+
+
+<a name="6.1.0"></a>
+## [6.1.0] - 2021-05-10
+
+- Add support for enable_execute_command ([#33](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/33))
 
 
 <a name="6.0.0"></a>
@@ -181,7 +200,10 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.0.0...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.2.1...HEAD
+[6.2.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.2.0...6.2.1
+[6.2.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.1.0...6.2.0
+[6.1.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.0.0...6.1.0
 [6.0.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/5.1.0...6.0.0
 [5.1.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/5.0.1...5.1.0
 [5.0.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/5.0.0...5.0.1
