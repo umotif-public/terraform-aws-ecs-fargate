@@ -95,11 +95,12 @@ resource "aws_security_group_rule" "egress_service" {
 resource "aws_lb_target_group" "task" {
   for_each = var.load_balanced ? { for tg in var.target_groups : tg.target_group_name => tg } : {}
 
-  name        = lookup(each.value, "target_group_name")
-  vpc_id      = var.vpc_id
-  protocol    = var.task_container_protocol
-  port        = lookup(each.value, "container_port", var.task_container_port)
-  target_type = "ip"
+  name                 = lookup(each.value, "target_group_name")
+  vpc_id               = var.vpc_id
+  protocol             = var.task_container_protocol
+  port                 = lookup(each.value, "container_port", var.task_container_port)
+  deregistration_delay = lookup(each.value, "deregistration_delay", null)
+  target_type          = "ip"
 
 
   dynamic "health_check" {
