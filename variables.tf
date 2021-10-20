@@ -81,6 +81,12 @@ variable "task_definition_memory" {
   type        = number
 }
 
+variable "task_definition_ephemeral_storage" {
+  description = "The total amount, in GiB, of ephemeral storage to set for the task."
+  default     = 0
+  type        = number
+}
+
 variable "task_container_command" {
   description = "The command that is passed to the container."
   default     = []

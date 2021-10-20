@@ -151,6 +151,13 @@ resource "aws_ecs_task_definition" "task" {
   memory                   = var.task_definition_memory
   task_role_arn            = aws_iam_role.task.arn
 
+  dynamic "ephemeral_storage" {
+    for_each = var.task_definition_ephemeral_storage == 0 ? [] : [var.task_definition_ephemeral_storage]
+    content {
+      size_in_gib = var.task_definition_ephemeral_storage
+    }
+  }
+  
   container_definitions = <<EOF
 [{
   "name": "${var.container_name != "" ? var.container_name : var.name_prefix}",
