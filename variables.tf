@@ -217,8 +217,14 @@ variable "volume" {
   default     = []
 }
 
+variable "task_health_command" {
+  type        = list(string)
+  description = "A string array representing the command that the container runs to determine if it is healthy."
+  default     = [""]
+}
+
 variable "task_health_check" {
-  type        = object({ command = list(string), interval = number, timeout = number, retries = number, startPeriod = number })
+  type        = map(number)
   description = "An optional healthcheck definition for the task"
   default     = null
 }
