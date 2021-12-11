@@ -157,7 +157,7 @@ resource "aws_ecs_task_definition" "task" {
       size_in_gib = var.task_definition_ephemeral_storage
     }
   }
-  
+
   container_definitions = <<EOF
 [{
   "name": "${var.container_name != "" ? var.container_name : var.name_prefix}",
@@ -189,13 +189,13 @@ resource "aws_ecs_task_definition" "task" {
       "awslogs-stream-prefix": "container"
     }
   },
-  %{if var.task_health_check != null~}
+  %{if var.task_health_check != null || var.task_health_command != null~}
   "healthcheck": {
-    "command": ${jsonencode(var.task_health_check.command)},
-    "interval": ${var.task_health_check.interval},
-    "timeout": ${var.task_health_check.timeout},
-    "retries": ${var.task_health_check.retries},
-    "startPeriod": ${var.task_health_check.startPeriod}
+    "command": ${jsonencode(var.task_health_command)},
+    "interval": ${lookup(var.task_health_check, "interval", 30)},
+    "timeout": ${lookup(var.task_health_check, "timeout", 5)},
+    "retries": ${lookup(var.task_health_check, "retries", 3)},
+    "startPeriod": ${lookup(var.task_health_check, "startPeriod", 0)}
   },
   %{~endif}
   "command": ${jsonencode(var.task_container_command)},

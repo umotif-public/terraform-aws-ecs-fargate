@@ -5,7 +5,25 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
-- Make deregistration_delay attribute customizable for ALB Target Groups
+- Break down task health check into two variables
+
+
+<a name="6.4.0"></a>
+## [6.4.0] - 2021-10-20
+
+- Add ephemeral_storage ([#47](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/47))
+
+
+<a name="6.3.0"></a>
+## [6.3.0] - 2021-09-30
+
+- Added pseudo_terminal attribute ([#45](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/45))
+
+
+<a name="6.2.2"></a>
+## [6.2.2] - 2021-08-20
+
+- Make deregistration_delay attribute customizable for ALB Target Groups ([#42](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/42))
 
 
 <a name="6.2.1"></a>
@@ -200,7 +218,10 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.2.1...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.0...HEAD
+[6.4.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.3.0...6.4.0
+[6.3.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.2.2...6.3.0
+[6.2.2]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.2.1...6.2.2
 [6.2.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.2.0...6.2.1
 [6.2.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.1.0...6.2.0
 [6.1.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.0.0...6.1.0

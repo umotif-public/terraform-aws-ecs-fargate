@@ -108,6 +108,10 @@ module "fargate" {
     }
   ]
 
+  task_health_check = {
+    timeout = 60
+  }
+
   health_check = {
     port = "traffic-port"
     path = "/"
@@ -139,4 +143,3 @@ resource "aws_security_group_rule" "test_sg_ingress" {
   to_port                  = 3022
   source_security_group_id = module.fargate.service_sg_id
 }
-
