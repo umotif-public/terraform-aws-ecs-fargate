@@ -220,7 +220,7 @@ variable "volume" {
 variable "task_health_command" {
   type        = list(string)
   description = "A string array representing the command that the container runs to determine if it is healthy."
-  default     = [""]
+  default     = null
 }
 
 variable "task_health_check" {
