@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
-- Break down task health check into two variables
+- fix: setting task_health_command to null
+
+
+<a name="6.4.1"></a>
+## [6.4.1] - 2021-12-11
+
+- Break down task health check into two variables ([#48](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/48))
 
 
 <a name="6.4.0"></a>
@@ -218,7 +224,8 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.0...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.1...HEAD
+[6.4.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.0...6.4.1
 [6.4.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.3.0...6.4.0
 [6.3.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.2.2...6.3.0
 [6.2.2]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.2.1...6.2.2
