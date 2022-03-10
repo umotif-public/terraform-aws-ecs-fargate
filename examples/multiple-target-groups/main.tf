@@ -9,8 +9,11 @@ data "aws_vpc" "default" {
   default = true
 }
 
-data "aws_subnet_ids" "all" {
-  vpc_id = data.aws_vpc.default.id
+data "aws_subnets" "all" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
 }
 
 #####
@@ -24,7 +27,7 @@ module "external-alb" {
   load_balancer_type = "application"
   internal           = false
   vpc_id             = data.aws_vpc.default.id
-  subnets            = data.aws_subnet_ids.all.ids
+  subnets            = data.aws_subnets.all.ids
 }
 
 resource "aws_lb_listener" "external_alb_80" {
@@ -46,7 +49,7 @@ module "internal-alb" {
   load_balancer_type = "application"
   internal           = false
   vpc_id             = data.aws_vpc.default.id
-  subnets            = data.aws_subnet_ids.all.ids
+  subnets            = data.aws_subnets.all.ids
 }
 
 resource "aws_lb_listener" "internal_alb_80" {
@@ -128,7 +131,7 @@ module "fargate" {
   # sg_name_prefix     = "my-security-group-name" # uncomment if you want to name security group with specific name
 
   vpc_id             = data.aws_vpc.default.id
-  private_subnet_ids = data.aws_subnet_ids.all.ids
+  private_subnet_ids = data.aws_subnets.all.ids
   cluster_id         = aws_ecs_cluster.cluster.id
   target_groups = [
     {

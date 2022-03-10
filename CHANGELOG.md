@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
-- fix: setting task_health_command to null
+- fix: setting `task_health_command` to null ([#49](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/49))
 
 
 <a name="6.4.1"></a>
