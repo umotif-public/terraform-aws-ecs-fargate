@@ -9,8 +9,11 @@ data "aws_vpc" "default" {
   default = true
 }
 
-data "aws_subnet_ids" "all" {
-  vpc_id = data.aws_vpc.default.id
+data "aws_subnets" "all" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
 }
 
 #####
@@ -24,7 +27,7 @@ module "alb" {
   load_balancer_type = "application"
   internal           = false
   vpc_id             = data.aws_vpc.default.id
-  subnets            = data.aws_subnet_ids.all.ids
+  subnets            = data.aws_subnets.all.ids
 }
 
 resource "aws_lb_listener" "alb_80" {
@@ -75,16 +78,20 @@ resource "aws_efs_file_system" "efs" {
 # ECS cluster and fargate
 #####
 resource "aws_ecs_cluster" "cluster" {
-  name               = "ecs-spot-test"
+  name = "ecs-spot-test"
+  setting {
+    name  = "containerInsights"
+    value = "disabled"
+  }
+}
+
+resource "aws_ecs_cluster_capacity_providers" "cluster" {
+  cluster_name = aws_ecs_cluster.cluster.name
+
   capacity_providers = ["FARGATE_SPOT", "FARGATE"]
 
   default_capacity_provider_strategy {
     capacity_provider = "FARGATE_SPOT"
-  }
-
-  setting {
-    name  = "containerInsights"
-    value = "disabled"
   }
 }
 
@@ -93,7 +100,7 @@ module "fargate" {
 
   name_prefix        = "ecs-fargate-example"
   vpc_id             = data.aws_vpc.default.id
-  private_subnet_ids = data.aws_subnet_ids.all.ids
+  private_subnet_ids = data.aws_subnets.all.ids
   cluster_id         = aws_ecs_cluster.cluster.id
 
   platform_version = "1.4.0"

@@ -1,5 +1,4 @@
-<!-- markdownlint-disable MD041 -->
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/umotif-public/terraform-aws-ecs-fargate?style=social)](https://github.com/umotif-public/terraform-aws-ecs-fargate/releases/latest)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/umotif-public/terraform-aws-ecs-fargate)](https://github.com/umotif-public/terraform-aws-ecs-fargate/releases/latest)
 
 # Terraform AWS ECS Fargate
 
@@ -17,15 +16,19 @@ Terraform 0.13. Pin module version to `~> v6.0`. Submit pull-requests to `master
 resource "aws_ecs_cluster" "cluster" {
   name = "example-ecs-cluster"
 
+  setting {
+    name  = "containerInsights"
+    value = "disabled"
+  }
+}
+
+resource "aws_ecs_cluster_capacity_providers" "cluster" {
+  cluster_name = aws_ecs_cluster.cluster.name
+
   capacity_providers = ["FARGATE_SPOT", "FARGATE"]
 
   default_capacity_provider_strategy {
     capacity_provider = "FARGATE_SPOT"
-  }
-
-  setting {
-    name  = "containerInsights"
-    value = "disabled"
   }
 }
 
@@ -81,7 +84,7 @@ Module managed by [Marcin Cuber](https://github.com/marcincuber) [LinkedIn](http
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.7 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.34 |
 
 ## Providers
