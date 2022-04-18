@@ -294,3 +294,15 @@ variable "enable_execute_command" {
   description = "Specifies whether to enable Amazon ECS Exec for the tasks within the service."
   default     = true
 }
+
+variable "operating_system_family" {
+  description = "The operating system family for the task."
+  default     = "LINUX"
+  type        = string
+}
+
+variable "cpu_architecture" {
+  description = "cpu architecture for the task"
+  default     = "X86_64"
+  type        = string
+}
