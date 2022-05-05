@@ -141,12 +141,12 @@ locals {
     }
   ]
 
-  target_group_portMaps = length(var.target_groups) > 0 ? [
+  target_group_portMaps = length(var.target_groups) > 0 ? distinct([
     for tg in var.target_groups: {
       containerPort = contains(keys(tg), "container_port") ? tg.container_port : var.task_container_port
       protocol = contains(keys(tg), "protocol") ?  lower(tg.protocol) : "tcp"
     }
-  ] : []
+  ]) : []
 }
 
 resource "aws_ecs_task_definition" "task" {
