@@ -175,7 +175,6 @@ resource "aws_ecs_task_definition" "task" {
   },
   %{~endif}
   "essential": true,
-  
   %{if length(local.target_group_portMaps) > 0 }
   "portMappings": ${jsonencode(local.target_group_portMaps)},
   %{else}
