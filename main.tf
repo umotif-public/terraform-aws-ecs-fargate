@@ -147,6 +147,13 @@ locals {
       protocol      = contains(keys(tg), "protocol") ? lower(tg.protocol) : "tcp"
     }
   ]) : []
+
+  task_environment_files = [
+    for file in var.task_container_environment_files : {
+      value  = file
+      type = "s3"
+    }
+  ]
 }
 
 resource "aws_ecs_task_definition" "task" {
@@ -238,6 +245,7 @@ resource "aws_ecs_task_definition" "task" {
   "pseudoTerminal": ${var.task_pseudo_terminal},
   %{~endif}
   "environment": ${jsonencode(local.task_environment)}
+  "environmentFiles": ${jsonencode(local.task_environment_files)}
 }]
 EOF
 

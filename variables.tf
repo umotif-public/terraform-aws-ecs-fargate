@@ -99,6 +99,12 @@ variable "task_container_environment" {
   type        = map(string)
 }
 
+variable "task_container_environment_files" {
+  description = "The environment variable files (s3 object arns) to pass to a container. Files must use .env file extension."
+  default     = []
+  type        = list(string)
+}
+
 variable "task_container_secrets" {
   description = "The secrets variables to pass to a container."
   default     = null
