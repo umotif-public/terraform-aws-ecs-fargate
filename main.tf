@@ -252,7 +252,7 @@ resource "aws_ecs_task_definition" "task" {
   %{if var.task_pseudo_terminal != null~}
   "pseudoTerminal": ${var.task_pseudo_terminal},
   %{~endif}
-  "environment": ${jsonencode(local.task_environment)}
+  "environment": ${jsonencode(local.task_environment)},
   "environmentFiles": ${jsonencode(local.task_environment_files)}
 }]
 EOF
