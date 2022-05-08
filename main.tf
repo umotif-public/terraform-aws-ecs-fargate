@@ -34,6 +34,14 @@ resource "aws_iam_role_policy" "read_repository_credentials" {
   policy = data.aws_iam_policy_document.read_repository_credentials[0].json
 }
 
+resource "aws_iam_role_policy" "get_environment_files" {
+  count = length(var.task_container_environment_files) != 0 ? 1 : 0
+
+  name   = "${var.name_prefix}-read-repository-credentials"
+  role   = aws_iam_role.execution.id
+  policy = data.aws_iam_policy_document.get_environment_files[0].json
+}
+
 #####
 # IAM - Task role, basic. Append policies to this role for S3, DynamoDB etc.
 #####

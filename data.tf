@@ -92,6 +92,20 @@ data "aws_iam_policy_document" "read_repository_credentials" {
   }
 }
 
+data "aws_iam_policy_document" "get_environment_files" {
+  count = length(var.task_container_environment_files) != 0 ? 1 : 0
+
+  statement {
+    effect = "Allow"
+
+    resources = var.task_container_environment_files
+
+    actions = [
+      "s3:GetObject"
+    ]
+  }
+}
+
 data "aws_ecs_task_definition" "task" {
   task_definition = aws_ecs_task_definition.task.family
 }
