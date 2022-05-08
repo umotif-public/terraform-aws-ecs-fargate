@@ -104,6 +104,16 @@ data "aws_iam_policy_document" "get_environment_files" {
       "s3:GetObject"
     ]
   }
+
+  statement {
+    effect = "Allow"
+
+    resources = [ for file in var.task_container_environment_files : split("/", file)[0] ]
+
+    actions = [
+      "s3:GetBucketLocation"
+    ]
+  }
 }
 
 data "aws_ecs_task_definition" "task" {
