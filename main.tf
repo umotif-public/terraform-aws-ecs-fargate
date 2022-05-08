@@ -150,8 +150,8 @@ locals {
 
   task_environment_files = [
     for file in var.task_container_environment_files : {
-      value  = file
-      type = "s3"
+      value = file
+      type  = "s3"
     }
   ]
 }
