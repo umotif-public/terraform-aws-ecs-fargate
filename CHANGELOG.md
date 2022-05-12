@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
+- removed whitespace
+- added distinct function to prevent a port being used multiple times
+- Added checks to ensure that errors are not generated when target_group ports mapping is used
+- Updated variable name
+- Updated file to prefer target_group ports if provided, else use task_container_port
+
+
+<a name="6.4.2"></a>
+## [6.4.2] - 2022-03-11
+
+- Refactor examples to work with provider 4.0.0+ ([#53](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/53))
 - fix: setting `task_health_command` to null ([#49](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/49))
 
 
@@ -224,7 +235,8 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.1...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.2...HEAD
+[6.4.2]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.1...6.4.2
 [6.4.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.0...6.4.1
 [6.4.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.3.0...6.4.0
 [6.3.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.2.2...6.3.0

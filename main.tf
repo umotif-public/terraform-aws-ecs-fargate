@@ -140,6 +140,13 @@ locals {
       value = v
     }
   ]
+
+  target_group_portMaps = length(var.target_groups) > 0 ? distinct([
+    for tg in var.target_groups : {
+      containerPort = contains(keys(tg), "container_port") ? tg.container_port : var.task_container_port
+      protocol      = contains(keys(tg), "protocol") ? lower(tg.protocol) : "tcp"
+    }
+  ]) : []
 }
 
 resource "aws_ecs_task_definition" "task" {
@@ -168,6 +175,9 @@ resource "aws_ecs_task_definition" "task" {
   },
   %{~endif}
   "essential": true,
+  %{if length(local.target_group_portMaps) > 0}
+  "portMappings": ${jsonencode(local.target_group_portMaps)},
+  %{else}
   %{if var.task_container_port != 0 || var.task_host_port != 0~}
   "portMappings": [
     {
@@ -180,6 +190,7 @@ resource "aws_ecs_task_definition" "task" {
       "protocol":"tcp"
     }
   ],
+  %{~endif}
   %{~endif}
   "logConfiguration": {
     "logDriver": "awslogs",
