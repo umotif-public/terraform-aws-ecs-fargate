@@ -136,7 +136,7 @@ module "fargate" {
   target_groups = [
     {
       target_group_name = "external-alb"
-      container_port    = 80
+      container_port    = 443
     },
     {
       target_group_name = "internal-alb"
@@ -186,4 +186,3 @@ resource "aws_security_group_rule" "test_sg_ingress" {
   to_port                  = 3022
   source_security_group_id = module.fargate.service_sg_id
 }
-
