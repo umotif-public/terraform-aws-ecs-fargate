@@ -108,7 +108,7 @@ data "aws_iam_policy_document" "get_environment_files" {
   statement {
     effect = "Allow"
 
-    resources = [ for file in var.task_container_environment_files : split("/", file)[0] ]
+    resources = [for file in var.task_container_environment_files : split("/", file)[0]]
 
     actions = [
       "s3:GetBucketLocation"
