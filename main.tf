@@ -241,6 +241,11 @@ resource "aws_ecs_task_definition" "task" {
 }]
 EOF
 
+  runtime_platform {
+    operating_system_family = var.operating_system_family
+    cpu_architecture        = var.cpu_architecture
+  }
+
   dynamic "placement_constraints" {
     for_each = var.placement_constraints
     content {

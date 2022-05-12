@@ -5,11 +5,8 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
-- removed whitespace
-- added distinct function to prevent a port being used multiple times
-- Added checks to ensure that errors are not generated when target_group ports mapping is used
-- Updated variable name
-- Updated file to prefer target_group ports if provided, else use task_container_port
+- added option to allow customisation of os/cpu architecture
+- Enable containerDefinitions portMappings to use target_groups container_ports ([#59](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/59))
 
 
 <a name="6.4.2"></a>

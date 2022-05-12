@@ -129,6 +129,7 @@ No modules.
 | <a name="input_capacity_provider_strategy"></a> [capacity\_provider\_strategy](#input\_capacity\_provider\_strategy) | (Optional) The capacity\_provider\_strategy configuration block. This is a list of maps, where each map should contain "capacity\_provider ", "weight" and "base" | `list(any)` | `[]` | no |
 | <a name="input_cluster_id"></a> [cluster\_id](#input\_cluster\_id) | The Amazon Resource Name (ARN) that identifies the cluster. | `string` | n/a | yes |
 | <a name="input_container_name"></a> [container\_name](#input\_container\_name) | Optional name for the container to be used instead of name\_prefix. | `string` | `""` | no |
+| <a name="input_cpu_architecture"></a> [cpu\_architecture](#input\_cpu\_architecture) | cpu architecture for the task | `string` | `"X86_64"` | no |
 | <a name="input_create_repository_credentials_iam_policy"></a> [create\_repository\_credentials\_iam\_policy](#input\_create\_repository\_credentials\_iam\_policy) | Set to true if you are specifying `repository_credentials` variable, it will attach IAM policy with necessary permissions to task role. | `bool` | `false` | no |
 | <a name="input_deployment_controller_type"></a> [deployment\_controller\_type](#input\_deployment\_controller\_type) | Type of deployment controller. Valid values: CODE\_DEPLOY, ECS, EXTERNAL. Default: ECS. | `string` | `"ECS"` | no |
 | <a name="input_deployment_maximum_percent"></a> [deployment\_maximum\_percent](#input\_deployment\_maximum\_percent) | The upper limit of the number of running tasks that can be running in a service during a deployment | `number` | `200` | no |
@@ -142,6 +143,7 @@ No modules.
 | <a name="input_log_retention_in_days"></a> [log\_retention\_in\_days](#input\_log\_retention\_in\_days) | Number of days the logs will be retained in CloudWatch. | `number` | `30` | no |
 | <a name="input_logs_kms_key"></a> [logs\_kms\_key](#input\_logs\_kms\_key) | The KMS key ARN to use to encrypt container logs. | `string` | `""` | no |
 | <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | A prefix used for naming resources. | `string` | n/a | yes |
+| <a name="input_operating_system_family"></a> [operating\_system\_family](#input\_operating\_system\_family) | The operating system family for the task. | `string` | `"LINUX"` | no |
 | <a name="input_placement_constraints"></a> [placement\_constraints](#input\_placement\_constraints) | (Optional) A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement\_constraints is 10. This is a list of maps, where each map should contain "type" and "expression" | `list(any)` | `[]` | no |
 | <a name="input_platform_version"></a> [platform\_version](#input\_platform\_version) | The platform version on which to run your service. Only applicable for launch\_type set to FARGATE. | `string` | `"LATEST"` | no |
 | <a name="input_private_subnet_ids"></a> [private\_subnet\_ids](#input\_private\_subnet\_ids) | A list of private subnets inside the VPC | `list(string)` | n/a | yes |
