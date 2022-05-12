@@ -5,7 +5,10 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
-- added option to allow customisation of os/cpu architecture
+- add GetBucketLocation permissions to iam policy
+- add iam permissions
+- Add support for environment files
+- Allow option to customise run_time platform ([#56](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/56))
 - Enable containerDefinitions portMappings to use target_groups container_ports ([#59](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/59))
 
 
