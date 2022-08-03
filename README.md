@@ -6,7 +6,7 @@ Terraform module to create [AWS ECS FARGATE](https://aws.amazon.com/fargate/) se
 
 ## Terraform versions
 
-Terraform 0.13. Pin module version to `~> v6.0`. Submit pull-requests to `master` branch.
+Terraform 1.0.11. Pin module version to `~> v6.0`. Submit pull-requests to `master` branch.
 
 ## Usage
 
@@ -77,7 +77,7 @@ module "ecs-fargate" {
 
 ## Authors
 
-Module managed by [Abdul Wahid](https://github.com/Ohid25) [LinkedIn](https://www.linkedin.com/in/abdulwahid/).
+Module managed by [uMotif](https://github.com/umotif-public/).
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
