@@ -84,7 +84,7 @@ Module managed by [Abdul Wahid](https://github.com/Ohid25) [LinkedIn](https://ww
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.7 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.11 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0.0 |
 
 ## Providers
@@ -160,6 +160,7 @@ No modules.
 | <a name="input_task_container_assign_public_ip"></a> [task\_container\_assign\_public\_ip](#input\_task\_container\_assign\_public\_ip) | Assigned public IP to the container. | `bool` | `false` | no |
 | <a name="input_task_container_command"></a> [task\_container\_command](#input\_task\_container\_command) | The command that is passed to the container. | `list(string)` | `[]` | no |
 | <a name="input_task_container_cpu"></a> [task\_container\_cpu](#input\_task\_container\_cpu) | Amount of CPU to reserve for the container. | `number` | `null` | no |
+| <a name="input_task_container_entrypoint"></a> [task\_container\_entrypoint](#input\_task\_container\_entrypoint) | The entrypoint that is passed to the container. | `list(string)` | `[]` | no |
 | <a name="input_task_container_environment"></a> [task\_container\_environment](#input\_task\_container\_environment) | The environment variables to pass to a container. | `map(string)` | `{}` | no |
 | <a name="input_task_container_environment_files"></a> [task\_container\_environment\_files](#input\_task\_container\_environment\_files) | The environment variable files (s3 object arns) to pass to a container. Files must use .env file extension. | `list(string)` | `[]` | no |
 | <a name="input_task_container_image"></a> [task\_container\_image](#input\_task\_container\_image) | The image used to start a container. | `string` | n/a | yes |

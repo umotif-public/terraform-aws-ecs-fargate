@@ -93,6 +93,12 @@ variable "task_container_command" {
   type        = list(string)
 }
 
+variable "task_container_entrypoint" {
+  description = "The entrypoint that is passed to the container."
+  default     = []
+  type        = list(string)
+}
+
 variable "task_container_environment" {
   description = "The environment variables to pass to a container."
   default     = {}

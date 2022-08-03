@@ -5,9 +5,12 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
-- add GetBucketLocation permissions to iam policy
-- add iam permissions
-- Add support for environment files
+
+
+<a name="6.5.0"></a>
+## [6.5.0] - 2022-05-12
+
+- Add support for EnvironmentFiles in container definition ([#60](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/60))
 - Allow option to customise run_time platform ([#56](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/56))
 - Enable containerDefinitions portMappings to use target_groups container_ports ([#59](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/59))
 
@@ -235,7 +238,8 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.2...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.0...HEAD
+[6.5.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.2...6.5.0
 [6.4.2]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.1...6.4.2
 [6.4.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.0...6.4.1
 [6.4.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.3.0...6.4.0
