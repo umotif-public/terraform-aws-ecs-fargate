@@ -225,6 +225,9 @@ resource "aws_ecs_task_definition" "task" {
   },
   %{~endif}
   "command": ${jsonencode(var.task_container_command)},
+  %{if var.task_container_entrypoint != ""~}
+  "entryPoint": ${jsonencode(var.task_container_entrypoint)},
+  %{~endif}
   %{if var.task_container_working_directory != ""~}
   "workingDirectory": ${var.task_container_working_directory},
   %{~endif}
