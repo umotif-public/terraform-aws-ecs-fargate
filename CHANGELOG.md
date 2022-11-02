@@ -7,6 +7,18 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="6.5.2"></a>
+## [6.5.2] - 2022-08-04
+
+- Add entrypoint to task definition parameters ([#61](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/61))
+
+
+<a name="6.5.1"></a>
+## [6.5.1] - 2022-07-13
+
+- Fix typo ([#57](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/57))
+
+
 <a name="6.5.0"></a>
 ## [6.5.0] - 2022-05-12
 
@@ -238,7 +250,9 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.0...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.2...HEAD
+[6.5.2]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.1...6.5.2
+[6.5.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.0...6.5.1
 [6.5.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.2...6.5.0
 [6.4.2]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.1...6.4.2
 [6.4.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.0...6.4.1

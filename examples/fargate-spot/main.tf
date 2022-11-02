@@ -1,3 +1,11 @@
+terraform {
+  required_version = ">= 1.0.11"
+
+  required_providers {
+    aws = ">= 4.0.0"
+  }
+}
+
 provider "aws" {
   region = "eu-west-1"
 }
@@ -119,6 +127,9 @@ module "fargate" {
       weight            = 100
     }
   ]
+
+  enable_deployment_circuit_breaker          = true
+  enable_deployment_circuit_breaker_rollback = true
 
   depends_on = [
     module.alb
