@@ -371,6 +371,11 @@ resource "aws_ecs_service" "service" {
     }
   }
 
+  deployment_circuit_breaker {
+    enable   = var.enable_deployment_circuit_breaker
+    rollback = var.enable_deployment_circuit_breaker_rollback
+  }
+
   deployment_controller {
     type = var.deployment_controller_type # CODE_DEPLOY or ECS or EXTERNAL
   }

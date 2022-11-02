@@ -33,6 +33,7 @@ variable "cluster_id" {
 variable "platform_version" {
   description = "The platform version on which to run your service. Only applicable for launch_type set to FARGATE."
   default     = "LATEST"
+  type        = string
 }
 
 variable "task_container_image" {
@@ -158,6 +159,18 @@ variable "deployment_controller_type" {
   description = "Type of deployment controller. Valid values: CODE_DEPLOY, ECS, EXTERNAL. Default: ECS."
 }
 
+variable "enable_deployment_circuit_breaker" {
+  default     = "false"
+  type        = bool
+  description = "Whether to enable the deployment circuit breaker logic for the service."
+}
+
+variable "enable_deployment_circuit_breaker_rollback" {
+  default     = "false"
+  type        = bool
+  description = "Whether to enable Amazon ECS to roll back the service if a service deployment fails. If rollback is enabled, when a service deployment fails, the service is rolled back to the last deployment that completed successfully."
+}
+
 # https://docs.aws.amazon.com/AmazonECS/latest/developerguide/private-auth.html
 variable "repository_credentials" {
   default     = ""
@@ -174,6 +187,7 @@ variable "repository_credentials_kms_key" {
 variable "create_repository_credentials_iam_policy" {
   default     = false
   description = "Set to true if you are specifying `repository_credentials` variable, it will attach IAM policy with necessary permissions to task role."
+  type        = bool
 }
 
 variable "service_registry_arn" {
@@ -227,6 +241,7 @@ variable "proxy_configuration" {
 variable "volume" {
   description = "(Optional) A set of volume blocks that containers in your task may use. This is a list of maps, where each map should contain \"name\", \"host_path\", \"docker_volume_configuration\" and \"efs_volume_configuration\". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html"
   default     = []
+  type        = list(any)
 }
 
 variable "task_health_command" {
