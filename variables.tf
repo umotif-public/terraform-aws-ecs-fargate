@@ -333,3 +333,8 @@ variable "cpu_architecture" {
   default     = "X86_64"
   type        = string
 }
+
+variable "readonlyRootFilesystem" {
+  default     = false
+  description = "When this parameter is true, the container is given read-only access to its root file system"
+}
