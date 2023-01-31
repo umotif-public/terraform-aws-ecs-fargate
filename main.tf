@@ -340,9 +340,10 @@ resource "aws_ecs_service" "service" {
   platform_version = var.platform_version
   launch_type      = length(var.capacity_provider_strategy) == 0 ? "FARGATE" : null
 
-  force_new_deployment   = var.force_new_deployment
-  wait_for_steady_state  = var.wait_for_steady_state
-  enable_execute_command = var.enable_execute_command
+  force_new_deployment    = var.force_new_deployment
+  wait_for_steady_state   = var.wait_for_steady_state
+  enable_execute_command  = var.enable_execute_command
+  enable_ecs_managed_tags = var.enable_ecs_managed_tags
 
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.deployment_maximum_percent

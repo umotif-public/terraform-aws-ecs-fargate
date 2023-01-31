@@ -85,13 +85,13 @@ Module managed by [uMotif](https://github.com/umotif-public/).
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.11 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.6.0, < 5.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.6.0, < 5.0.0 |
 
 ## Modules
 
@@ -139,6 +139,7 @@ No modules.
 | <a name="input_desired_count"></a> [desired\_count](#input\_desired\_count) | The number of instances of the task definitions to place and keep running. | `number` | `1` | no |
 | <a name="input_enable_deployment_circuit_breaker"></a> [enable\_deployment\_circuit\_breaker](#input\_enable\_deployment\_circuit\_breaker) | Whether to enable the deployment circuit breaker logic for the service. | `bool` | `"false"` | no |
 | <a name="input_enable_deployment_circuit_breaker_rollback"></a> [enable\_deployment\_circuit\_breaker\_rollback](#input\_enable\_deployment\_circuit\_breaker\_rollback) | Whether to enable Amazon ECS to roll back the service if a service deployment fails. If rollback is enabled, when a service deployment fails, the service is rolled back to the last deployment that completed successfully. | `bool` | `"false"` | no |
+| <a name="input_enable_ecs_managed_tags"></a> [enable\_ecs\_managed\_tags](#input\_enable\_ecs\_managed\_tags) | Specifies whether to enable Amazon ECS managed tags for the tasks within the service | `bool` | `true` | no |
 | <a name="input_enable_execute_command"></a> [enable\_execute\_command](#input\_enable\_execute\_command) | Specifies whether to enable Amazon ECS Exec for the tasks within the service. | `bool` | `true` | no |
 | <a name="input_force_new_deployment"></a> [force\_new\_deployment](#input\_force\_new\_deployment) | Enable to force a new task deployment of the service. This can be used to update tasks to use a newer Docker image with same image/tag combination (e.g. myimage:latest), roll Fargate tasks onto a newer platform version. | `bool` | `false` | no |
 | <a name="input_health_check"></a> [health\_check](#input\_health\_check) | A health block containing health check settings for the target group. Overrides the defaults. | `map(string)` | n/a | yes |
@@ -153,6 +154,7 @@ No modules.
 | <a name="input_private_subnet_ids"></a> [private\_subnet\_ids](#input\_private\_subnet\_ids) | A list of private subnets inside the VPC | `list(string)` | n/a | yes |
 | <a name="input_propagate_tags"></a> [propagate\_tags](#input\_propagate\_tags) | Specifies whether to propagate the tags from the task definition or the service to the tasks. The valid values are SERVICE and TASK\_DEFINITION. | `string` | `"TASK_DEFINITION"` | no |
 | <a name="input_proxy_configuration"></a> [proxy\_configuration](#input\_proxy\_configuration) | (Optional) The proxy configuration details for the App Mesh proxy. This is a list of maps, where each map should contain "container\_name", "properties" and "type" | `list(any)` | `[]` | no |
+| <a name="input_readonlyRootFilesystem"></a> [readonlyRootFilesystem](#input\_readonlyRootFilesystem) | When this parameter is true, the container is given read-only access to its root file system | `bool` | `false` | no |
 | <a name="input_repository_credentials"></a> [repository\_credentials](#input\_repository\_credentials) | name or ARN of a secrets manager secret (arn:aws:secretsmanager:region:aws\_account\_id:secret:secret\_name) | `string` | `""` | no |
 | <a name="input_repository_credentials_kms_key"></a> [repository\_credentials\_kms\_key](#input\_repository\_credentials\_kms\_key) | key id, key ARN, alias name or alias ARN of the key that encrypted the repository credentials | `string` | `"alias/aws/secretsmanager"` | no |
 | <a name="input_service_registry_arn"></a> [service\_registry\_arn](#input\_service\_registry\_arn) | ARN of aws\_service\_discovery\_service resource | `string` | `""` | no |
