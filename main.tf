@@ -256,7 +256,8 @@ resource "aws_ecs_task_definition" "task" {
   "pseudoTerminal": ${var.task_pseudo_terminal},
   %{~endif}
   "environment": ${jsonencode(local.task_environment)},
-  "environmentFiles": ${jsonencode(local.task_environment_files)}
+  "environmentFiles": ${jsonencode(local.task_environment_files)},
+  "readonlyRootFilesystem": ${var.readonlyRootFilesystem ? true : false}
 }]
 EOF
 
