@@ -322,6 +322,12 @@ variable "enable_execute_command" {
   default     = true
 }
 
+variable "enable_ecs_managed_tags" {
+  type        = bool
+  description = "Specifies whether to enable Amazon ECS managed tags for the tasks within the service"
+  default     = true
+}
+
 variable "operating_system_family" {
   description = "The operating system family for the task."
   default     = "LINUX"
@@ -337,4 +343,5 @@ variable "cpu_architecture" {
 variable "readonlyRootFilesystem" {
   default     = false
   description = "When this parameter is true, the container is given read-only access to its root file system"
+  type        = bool
 }

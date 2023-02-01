@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
+- Add readonlyRootFilesystem to container_definition ([#64](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/64))
+
+
+<a name="6.6.0"></a>
+## [6.6.0] - 2022-11-02
+
+- Add new circuit breaker feature ([#63](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/63))
 
 
 <a name="6.5.2"></a>
@@ -250,7 +257,8 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.2...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.6.0...HEAD
+[6.6.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.2...6.6.0
 [6.5.2]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.1...6.5.2
 [6.5.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.0...6.5.1
 [6.5.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.4.2...6.5.0
