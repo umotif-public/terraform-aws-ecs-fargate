@@ -130,6 +130,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_capacity_provider_strategy"></a> [capacity\_provider\_strategy](#input\_capacity\_provider\_strategy) | (Optional) The capacity\_provider\_strategy configuration block. This is a list of maps, where each map should contain "capacity\_provider ", "weight" and "base" | `list(any)` | `[]` | no |
 | <a name="input_cluster_id"></a> [cluster\_id](#input\_cluster\_id) | The Amazon Resource Name (ARN) that identifies the cluster. | `string` | n/a | yes |
+| <a name="input_container_definitions"></a> [container\_definitions](#input\_container\_definitions) | A string containing json encoded array of container definitions for Task Definition | `string` | `null` | no |
 | <a name="input_container_name"></a> [container\_name](#input\_container\_name) | Optional name for the container to be used instead of name\_prefix. | `string` | `""` | no |
 | <a name="input_cpu_architecture"></a> [cpu\_architecture](#input\_cpu\_architecture) | cpu architecture for the task | `string` | `"X86_64"` | no |
 | <a name="input_create_repository_credentials_iam_policy"></a> [create\_repository\_credentials\_iam\_policy](#input\_create\_repository\_credentials\_iam\_policy) | Set to true if you are specifying `repository_credentials` variable, it will attach IAM policy with necessary permissions to task role. | `bool` | `false` | no |
@@ -142,7 +143,7 @@ No modules.
 | <a name="input_enable_ecs_managed_tags"></a> [enable\_ecs\_managed\_tags](#input\_enable\_ecs\_managed\_tags) | Specifies whether to enable Amazon ECS managed tags for the tasks within the service | `bool` | `true` | no |
 | <a name="input_enable_execute_command"></a> [enable\_execute\_command](#input\_enable\_execute\_command) | Specifies whether to enable Amazon ECS Exec for the tasks within the service. | `bool` | `true` | no |
 | <a name="input_force_new_deployment"></a> [force\_new\_deployment](#input\_force\_new\_deployment) | Enable to force a new task deployment of the service. This can be used to update tasks to use a newer Docker image with same image/tag combination (e.g. myimage:latest), roll Fargate tasks onto a newer platform version. | `bool` | `false` | no |
-| <a name="input_health_check"></a> [health\_check](#input\_health\_check) | A health block containing health check settings for the target group. Overrides the defaults. | `map(string)` | n/a | yes |
+| <a name="input_health_check"></a> [health\_check](#input\_health\_check) | A health block containing health check settings for the target group. Overrides the defaults. | `map(string)` | `{}` | no |
 | <a name="input_health_check_grace_period_seconds"></a> [health\_check\_grace\_period\_seconds](#input\_health\_check\_grace\_period\_seconds) | Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 7200. Only valid for services configured to use load balancers. | `number` | `300` | no |
 | <a name="input_load_balanced"></a> [load\_balanced](#input\_load\_balanced) | Whether the task should be loadbalanced. | `bool` | `true` | no |
 | <a name="input_log_retention_in_days"></a> [log\_retention\_in\_days](#input\_log\_retention\_in\_days) | Number of days the logs will be retained in CloudWatch. | `number` | `30` | no |
@@ -167,10 +168,10 @@ No modules.
 | <a name="input_task_container_entrypoint"></a> [task\_container\_entrypoint](#input\_task\_container\_entrypoint) | The entrypoint that is passed to the container. | `list(string)` | `[]` | no |
 | <a name="input_task_container_environment"></a> [task\_container\_environment](#input\_task\_container\_environment) | The environment variables to pass to a container. | `map(string)` | `{}` | no |
 | <a name="input_task_container_environment_files"></a> [task\_container\_environment\_files](#input\_task\_container\_environment\_files) | The environment variable files (s3 object arns) to pass to a container. Files must use .env file extension. | `list(string)` | `[]` | no |
-| <a name="input_task_container_image"></a> [task\_container\_image](#input\_task\_container\_image) | The image used to start a container. | `string` | n/a | yes |
+| <a name="input_task_container_image"></a> [task\_container\_image](#input\_task\_container\_image) | The image used to start a container. | `string` | `"marcincuber/2048-game:latest"` | no |
 | <a name="input_task_container_memory"></a> [task\_container\_memory](#input\_task\_container\_memory) | The hard limit (in MiB) of memory for the container. | `number` | `null` | no |
 | <a name="input_task_container_memory_reservation"></a> [task\_container\_memory\_reservation](#input\_task\_container\_memory\_reservation) | The soft limit (in MiB) of memory to reserve for the container. | `number` | `null` | no |
-| <a name="input_task_container_port"></a> [task\_container\_port](#input\_task\_container\_port) | The port number on the container that is bound to the user-specified or automatically assigned host port | `number` | n/a | yes |
+| <a name="input_task_container_port"></a> [task\_container\_port](#input\_task\_container\_port) | The port number on the container that is bound to the user-specified or automatically assigned host port | `number` | `80` | no |
 | <a name="input_task_container_protocol"></a> [task\_container\_protocol](#input\_task\_container\_protocol) | Protocol that the container exposes. | `string` | `"HTTP"` | no |
 | <a name="input_task_container_secrets"></a> [task\_container\_secrets](#input\_task\_container\_secrets) | The secrets variables to pass to a container. | `list(map(string))` | `null` | no |
 | <a name="input_task_container_working_directory"></a> [task\_container\_working\_directory](#input\_task\_container\_working\_directory) | The working directory to run commands inside the container. | `string` | `""` | no |
@@ -179,7 +180,7 @@ No modules.
 | <a name="input_task_definition_memory"></a> [task\_definition\_memory](#input\_task\_definition\_memory) | The soft limit (in MiB) of memory to reserve for the task. | `number` | `512` | no |
 | <a name="input_task_health_check"></a> [task\_health\_check](#input\_task\_health\_check) | An optional healthcheck definition for the task | `map(number)` | `null` | no |
 | <a name="input_task_health_command"></a> [task\_health\_command](#input\_task\_health\_command) | A string array representing the command that the container runs to determine if it is healthy. | `list(string)` | `null` | no |
-| <a name="input_task_host_port"></a> [task\_host\_port](#input\_task\_host\_port) | The port number on the container instance to reserve for your container. | `number` | `0` | no |
+| <a name="input_task_host_port"></a> [task\_host\_port](#input\_task\_host\_port) | The port number on the container instance to reserve for your container. | `number` | `80` | no |
 | <a name="input_task_mount_points"></a> [task\_mount\_points](#input\_task\_mount\_points) | The mount points for data volumes in your container. Each object inside the list requires "sourceVolume", "containerPath" and "readOnly". For more information see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html | `list(object({ sourceVolume = string, containerPath = string, readOnly = bool }))` | `null` | no |
 | <a name="input_task_pseudo_terminal"></a> [task\_pseudo\_terminal](#input\_task\_pseudo\_terminal) | Allocate TTY in the container | `bool` | `null` | no |
 | <a name="input_task_start_timeout"></a> [task\_start\_timeout](#input\_task\_start\_timeout) | Time duration (in seconds) to wait before giving up on resolving dependencies for a container. If this parameter is not specified, the default value of 3 minutes is used (fargate). | `number` | `null` | no |
@@ -202,6 +203,7 @@ No modules.
 | <a name="output_target_group_arn"></a> [target\_group\_arn](#output\_target\_group\_arn) | The ARN of the Target Group used by Load Balancer. |
 | <a name="output_target_group_name"></a> [target\_group\_name](#output\_target\_group\_name) | The Name of the Target Group used by Load Balancer. |
 | <a name="output_task_definition_arn"></a> [task\_definition\_arn](#output\_task\_definition\_arn) | The Amazon Resource Name (ARN) of the task definition created |
+| <a name="output_task_definition_container_definitions"></a> [task\_definition\_container\_definitions](#output\_task\_definition\_container\_definitions) | A list of container definitions |
 | <a name="output_task_definition_name"></a> [task\_definition\_name](#output\_task\_definition\_name) | The name of the task definition created |
 | <a name="output_task_role_arn"></a> [task\_role\_arn](#output\_task\_role\_arn) | The Amazon Resource Name (ARN) specifying the ECS service role. |
 | <a name="output_task_role_name"></a> [task\_role\_name](#output\_task\_role\_name) | The name of the Fargate task service role. |

@@ -57,3 +57,8 @@ output "task_definition_name" {
   description = "The name of the task definition created"
   value       = aws_ecs_task_definition.task.arn
 }
+
+output "task_definition_container_definitions" {
+  description = "A list of container definitions"
+  value       = aws_ecs_task_definition.task.container_definitions
+}
