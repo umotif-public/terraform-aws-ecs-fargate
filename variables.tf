@@ -360,3 +360,9 @@ variable "container_definitions" {
   type        = string
   default     = null
 }
+
+variable "enable_logs" {
+  description = "Turn cloudwatch logging optional"
+  type        = bool
+  default     = false
+}

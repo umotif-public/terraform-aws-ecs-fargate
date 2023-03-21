@@ -2,6 +2,8 @@
 # Cloudwatch
 #####
 resource "aws_cloudwatch_log_group" "main" {
+  count = var.enable_logs ? 1 : 0
+
   name = var.name_prefix
 
   retention_in_days = var.log_retention_in_days
