@@ -35,7 +35,7 @@ output "service_name" {
 
 output "log_group_name" {
   description = "The name of the Cloudwatch log group for the task."
-  value       = aws_cloudwatch_log_group.main.name
+  value       = aws_cloudwatch_log_group.main[0].name
 }
 
 output "execution_role_arn" {

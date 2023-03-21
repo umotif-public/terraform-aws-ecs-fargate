@@ -364,5 +364,5 @@ variable "container_definitions" {
 variable "enable_logs" {
   description = "Turn cloudwatch logging optional"
   type        = bool
-  default     = false
+  default     = true
 }

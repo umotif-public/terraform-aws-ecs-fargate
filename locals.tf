@@ -33,7 +33,7 @@ locals {
   "logConfiguration": {
     "logDriver": "awslogs",
     "options": {
-      "awslogs-group": "${aws_cloudwatch_log_group.main.name}",
+      "awslogs-group": "${aws_cloudwatch_log_group.main[0].name}",
       "awslogs-region": "${data.aws_region.current.name}",
       "awslogs-stream-prefix": "container"
     }
