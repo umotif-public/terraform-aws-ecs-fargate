@@ -15,18 +15,34 @@ data "aws_iam_policy_document" "task_assume" {
 
 # Task logging privileges
 data "aws_iam_policy_document" "task_permissions" {
-  statement {
-    effect = "Allow"
+  dynamic "statement" {
+    for_each = var.enable_logs ? [1] : []
+    content {
+      effect = "Allow"
 
-    resources = [
-      aws_cloudwatch_log_group.main[0].arn,
-      "${aws_cloudwatch_log_group.main[0].arn}:*"
-    ]
+      resources = [
+        aws_cloudwatch_log_group.main[0].arn,
+        "${aws_cloudwatch_log_group.main[0].arn}:*"
+      ]
 
-    actions = [
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-    ]
+      actions = [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+      ]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = var.enable_logs ? [] : [1]
+
+    content {
+      effect   = "Allow"
+      resource = [var.log_groups_arn]
+      actions = [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ]
+    }
   }
 }
 

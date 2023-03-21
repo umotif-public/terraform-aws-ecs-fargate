@@ -30,6 +30,7 @@ locals {
   ],
   %{~endif}
   %{~endif}
+  %{if var.enable_logs~}
   "logConfiguration": {
     "logDriver": "awslogs",
     "options": {
@@ -37,7 +38,8 @@ locals {
       "awslogs-region": "${data.aws_region.current.name}",
       "awslogs-stream-prefix": "container"
     }
-  },
+  }
+  %{~endif},
   %{if var.task_health_check != null || var.task_health_command != null~}
   "healthcheck": {
     "command": ${jsonencode(var.task_health_command)},

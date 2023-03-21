@@ -366,3 +366,9 @@ variable "enable_logs" {
   type        = bool
   default     = true
 }
+
+variable "log_groups_arn" {
+  description = "List of CloudWatch Group ARNs to use when enable_logs is set to false"
+  type        = list(string)
+  default     = []
+}
