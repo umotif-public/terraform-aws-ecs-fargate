@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
+- Turn cloudwatch logging optional
+- Refactored container definitions out of module
+
+
+<a name="6.7.0"></a>
+## [6.7.0] - 2023-02-01
+
+- Add ecs-managed-tags parameter ([#66](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/66))
 - Add readonlyRootFilesystem to container_definition ([#64](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/64))
 
 
@@ -257,7 +265,8 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.6.0...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.7.0...HEAD
+[6.7.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.6.0...6.7.0
 [6.6.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.2...6.6.0
 [6.5.2]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.1...6.5.2
 [6.5.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.0...6.5.1
