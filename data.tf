@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "task_permissions" {
 
     content {
       effect    = "Allow"
-      resources = [var.log_groups_arn]
+      resources = var.log_groups_arn
       actions = [
         "logs:CreateLogStream",
         "logs:PutLogEvents"
