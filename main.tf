@@ -111,7 +111,8 @@ resource "aws_lb_target_group" "task" {
   protocol             = var.task_container_protocol
   port                 = lookup(each.value, "container_port", var.task_container_port)
   deregistration_delay = lookup(each.value, "deregistration_delay", null)
-  target_type          = "ip"
+  # awsvpc network mode (required for the AWS Fargate launch type), IP must be the target type.
+  target_type = "ip"
 
 
   dynamic "health_check" {
