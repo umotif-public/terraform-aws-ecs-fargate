@@ -291,7 +291,7 @@ resource "aws_ecs_service" "service" {
   dynamic "load_balancer" {
     for_each = var.load_balanced ? var.target_groups : []
     content {
-      container_name   = lookup(load_balancer.value, "container_name", var.name_prefix)
+      container_name   = var.container_name != "" ? var.container_name : var.name_prefix
       container_port   = lookup(load_balancer.value, "container_port", var.task_container_port)
       target_group_arn = aws_lb_target_group.task[lookup(load_balancer.value, "target_group_name")].arn
     }
