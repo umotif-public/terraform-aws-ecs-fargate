@@ -187,6 +187,7 @@ No modules.
 | <a name="input_volume"></a> [volume](#input\_volume) | (Optional) A set of volume blocks that containers in your task may use. This is a list of maps, where each map should contain "name", "host\_path", "docker\_volume\_configuration" and "efs\_volume\_configuration". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html | `list(any)` | `[]` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC ID. | `string` | n/a | yes |
 | <a name="input_wait_for_steady_state"></a> [wait\_for\_steady\_state](#input\_wait\_for\_steady\_state) | If true, Terraform will wait for the service to reach a steady state (like aws ecs wait services-stable) before continuing. | `bool` | `false` | no |
+| <a name="deny_egress_to_anywhere"></a> [deny\_egress\_to\_anywhere](#deny\_egress\_to\_anywhere) | If true, Terraform will no create the default egress rule which allows all outgoing traffic. | `bool` | `false` | no |
 
 ## Outputs
 
