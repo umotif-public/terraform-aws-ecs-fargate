@@ -88,6 +88,7 @@ resource "aws_security_group" "ecs_service" {
 }
 
 resource "aws_security_group_rule" "egress_service" {
+  count             = var.deny_egress_to_anywhere ? 0 : 1
   security_group_id = aws_security_group.ecs_service.id
   type              = "egress"
   protocol          = "-1"

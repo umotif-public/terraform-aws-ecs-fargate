@@ -345,3 +345,9 @@ variable "readonlyRootFilesystem" {
   description = "When this parameter is true, the container is given read-only access to its root file system"
   type        = bool
 }
+
+variable "deny_egress_to_anywhere" {
+  default     = false
+  description = "When this parameter is true, no default egress rule will be created"
+  type        = bool
+}
