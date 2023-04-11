@@ -7,7 +7,7 @@ repos:
   - id: check-executables-have-shebangs
   - id: pretty-format-json
     args: ['--autofix', '--no-sort-keys', '--indent=2']
-  - id: check-byte-order-marker
+  - id: fix-byte-order-marker
   - id: check-case-conflict
   - id: check-executables-have-shebangs
   - id: check-merge-conflict
@@ -18,7 +18,7 @@ repos:
     args: ['--allow-missing-credentials']
   - id: trailing-whitespace
 - repo: https://github.com/antonbabenko/pre-commit-terraform
-  rev: v1.77.1
+  rev: v1.77.2
   hooks:
   - id: terraform_fmt
   - id: terraform_docs

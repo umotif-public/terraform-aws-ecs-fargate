@@ -120,12 +120,12 @@ resource "aws_lb_target_group" "task" {
     content {
       enabled             = lookup(health_check.value, "enabled", true)
       interval            = lookup(health_check.value, "interval", 30)
-      path                = lookup(health_check.value, "path", null)
+      path                = lookup(health_check.value, "path", "/")
       port                = lookup(health_check.value, "port", "traffic-port")
-      protocol            = lookup(health_check.value, "protocol", null)
-      timeout             = lookup(health_check.value, "timeout", null)
-      healthy_threshold   = lookup(health_check.value, "healthy_threshold", 3)
-      unhealthy_threshold = lookup(health_check.value, "unhealthy_threshold", null)
+      protocol            = lookup(health_check.value, "protocol", "TCP")
+      timeout             = lookup(health_check.value, "timeout", 5)
+      healthy_threshold   = lookup(health_check.value, "healthy_threshold", 5)
+      unhealthy_threshold = lookup(health_check.value, "unhealthy_threshold", 2)
       matcher             = lookup(health_check.value, "matcher", null)
     }
   }

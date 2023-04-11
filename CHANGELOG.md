@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
+- Comment about 'target_type' for Fargate
+- Revert container name to original
+- Remove square brackets as input is a list
+- Lint fixes
+- Turn cloudwatch logging optional - fix
+- Turn cloudwatch logging optional
+- chore: Update documentation
 - Turn cloudwatch logging optional
 - Refactored container definitions out of module
 
