@@ -134,6 +134,7 @@ No modules.
 | <a name="input_container_name"></a> [container\_name](#input\_container\_name) | Optional name for the container to be used instead of name\_prefix. | `string` | `""` | no |
 | <a name="input_cpu_architecture"></a> [cpu\_architecture](#input\_cpu\_architecture) | cpu architecture for the task | `string` | `"X86_64"` | no |
 | <a name="input_create_repository_credentials_iam_policy"></a> [create\_repository\_credentials\_iam\_policy](#input\_create\_repository\_credentials\_iam\_policy) | Set to true if you are specifying `repository_credentials` variable, it will attach IAM policy with necessary permissions to task role. | `bool` | `false` | no |
+| <a name="input_deny_egress_to_anywhere"></a> [deny\_egress\_to\_anywhere](#input\_deny\_egress\_to\_anywhere) | When this parameter is true, no default egress rule will be created | `bool` | `false` | no |
 | <a name="input_deployment_controller_type"></a> [deployment\_controller\_type](#input\_deployment\_controller\_type) | Type of deployment controller. Valid values: CODE\_DEPLOY, ECS, EXTERNAL. Default: ECS. | `string` | `"ECS"` | no |
 | <a name="input_deployment_maximum_percent"></a> [deployment\_maximum\_percent](#input\_deployment\_maximum\_percent) | The upper limit of the number of running tasks that can be running in a service during a deployment | `number` | `200` | no |
 | <a name="input_deployment_minimum_healthy_percent"></a> [deployment\_minimum\_healthy\_percent](#input\_deployment\_minimum\_healthy\_percent) | The lower limit of the number of running tasks that must remain running and healthy in a service during a deployment | `number` | `50` | no |
@@ -190,7 +191,6 @@ No modules.
 | <a name="input_volume"></a> [volume](#input\_volume) | (Optional) A set of volume blocks that containers in your task may use. This is a list of maps, where each map should contain "name", "host\_path", "docker\_volume\_configuration" and "efs\_volume\_configuration". Full set of options can be found at https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html | `list(any)` | `[]` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC ID. | `string` | n/a | yes |
 | <a name="input_wait_for_steady_state"></a> [wait\_for\_steady\_state](#input\_wait\_for\_steady\_state) | If true, Terraform will wait for the service to reach a steady state (like aws ecs wait services-stable) before continuing. | `bool` | `false` | no |
-| <a name="deny_egress_to_anywhere"></a> [deny\_egress\_to\_anywhere](#deny\_egress\_to\_anywhere) | If true, Terraform will no create the default egress rule which allows all outgoing traffic. | `bool` | `false` | no |
 
 ## Outputs
 
