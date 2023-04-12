@@ -39,6 +39,7 @@ variable "platform_version" {
 variable "task_container_image" {
   description = "The image used to start a container."
   type        = string
+  default     = "marcincuber/2048-game:latest"
 }
 
 variable "desired_count" {
@@ -56,12 +57,13 @@ variable "task_container_assign_public_ip" {
 variable "task_container_port" {
   description = "The port number on the container that is bound to the user-specified or automatically assigned host port"
   type        = number
+  default     = 80
 }
 
 variable "task_host_port" {
   description = "The port number on the container instance to reserve for your container."
   type        = number
-  default     = 0
+  default     = 80
 }
 
 variable "task_container_protocol" {
@@ -127,6 +129,7 @@ variable "log_retention_in_days" {
 variable "health_check" {
   description = "A health block containing health check settings for the target group. Overrides the defaults."
   type        = map(string)
+  default     = {}
 }
 
 variable "health_check_grace_period_seconds" {
@@ -350,4 +353,22 @@ variable "deny_egress_to_anywhere" {
   default     = false
   description = "When this parameter is true, no default egress rule will be created"
   type        = bool
+}
+
+variable "container_definitions" {
+  description = "A string containing json encoded array of container definitions for Task Definition"
+  type        = string
+  default     = null
+}
+
+variable "enable_logs" {
+  description = "Turn cloudwatch logging optional"
+  type        = bool
+  default     = true
+}
+
+variable "log_groups_arn" {
+  description = "List of CloudWatch Group ARNs to use when enable_logs is set to false"
+  type        = list(string)
+  default     = []
 }

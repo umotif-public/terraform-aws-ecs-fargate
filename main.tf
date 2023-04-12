@@ -2,6 +2,8 @@
 # Cloudwatch
 #####
 resource "aws_cloudwatch_log_group" "main" {
+  count = var.enable_logs ? 1 : 0
+
   name = var.name_prefix
 
   retention_in_days = var.log_retention_in_days
@@ -109,20 +111,21 @@ resource "aws_lb_target_group" "task" {
   protocol             = var.task_container_protocol
   port                 = lookup(each.value, "container_port", var.task_container_port)
   deregistration_delay = lookup(each.value, "deregistration_delay", null)
-  target_type          = "ip"
+  # awsvpc network mode (required for the AWS Fargate launch type), IP must be the target type.
+  target_type = "ip"
 
 
   dynamic "health_check" {
     for_each = [var.health_check]
     content {
-      enabled             = lookup(health_check.value, "enabled", null)
-      interval            = lookup(health_check.value, "interval", null)
-      path                = lookup(health_check.value, "path", null)
-      port                = lookup(health_check.value, "port", null)
-      protocol            = lookup(health_check.value, "protocol", null)
-      timeout             = lookup(health_check.value, "timeout", null)
-      healthy_threshold   = lookup(health_check.value, "healthy_threshold", null)
-      unhealthy_threshold = lookup(health_check.value, "unhealthy_threshold", null)
+      enabled             = lookup(health_check.value, "enabled", true)
+      interval            = lookup(health_check.value, "interval", 30)
+      path                = lookup(health_check.value, "path", "/")
+      port                = lookup(health_check.value, "port", "traffic-port")
+      protocol            = lookup(health_check.value, "protocol", "TCP")
+      timeout             = lookup(health_check.value, "timeout", 5)
+      healthy_threshold   = lookup(health_check.value, "healthy_threshold", 5)
+      unhealthy_threshold = lookup(health_check.value, "unhealthy_threshold", 2)
       matcher             = lookup(health_check.value, "matcher", null)
     }
   }
@@ -181,86 +184,7 @@ resource "aws_ecs_task_definition" "task" {
     }
   }
 
-  container_definitions = <<EOF
-[{
-  "name": "${var.container_name != "" ? var.container_name : var.name_prefix}",
-  "image": "${var.task_container_image}",
-  %{if var.repository_credentials != ""~}
-  "repositoryCredentials": {
-    "credentialsParameter": "${var.repository_credentials}"
-  },
-  %{~endif}
-  "essential": true,
-  %{if length(local.target_group_portMaps) > 0}
-  "portMappings": ${jsonencode(local.target_group_portMaps)},
-  %{else}
-  %{if var.task_container_port != 0 || var.task_host_port != 0~}
-  "portMappings": [
-    {
-      %{if var.task_host_port != 0~}
-      "hostPort": ${var.task_host_port},
-      %{~endif}
-      %{if var.task_container_port != 0~}
-      "containerPort": ${var.task_container_port},
-      %{~endif}
-      "protocol":"tcp"
-    }
-  ],
-  %{~endif}
-  %{~endif}
-  "logConfiguration": {
-    "logDriver": "awslogs",
-    "options": {
-      "awslogs-group": "${aws_cloudwatch_log_group.main.name}",
-      "awslogs-region": "${data.aws_region.current.name}",
-      "awslogs-stream-prefix": "container"
-    }
-  },
-  %{if var.task_health_check != null || var.task_health_command != null~}
-  "healthcheck": {
-    "command": ${jsonencode(var.task_health_command)},
-    "interval": ${lookup(var.task_health_check, "interval", 30)},
-    "timeout": ${lookup(var.task_health_check, "timeout", 5)},
-    "retries": ${lookup(var.task_health_check, "retries", 3)},
-    "startPeriod": ${lookup(var.task_health_check, "startPeriod", 0)}
-  },
-  %{~endif}
-  "command": ${jsonencode(var.task_container_command)},
-  %{if var.task_container_entrypoint != ""~}
-  "entryPoint": ${jsonencode(var.task_container_entrypoint)},
-  %{~endif}
-  %{if var.task_container_working_directory != ""~}
-  "workingDirectory": ${var.task_container_working_directory},
-  %{~endif}
-  %{if var.task_container_memory != null~}
-  "memory": ${var.task_container_memory},
-  %{~endif}
-  %{if var.task_container_memory_reservation != null~}
-  "memoryReservation": ${var.task_container_memory_reservation},
-  %{~endif}
-  %{if var.task_container_cpu != null~}
-  "cpu": ${var.task_container_cpu},
-  %{~endif}
-  %{if var.task_start_timeout != null~}
-  "startTimeout": ${var.task_start_timeout},
-  %{~endif}
-  %{if var.task_stop_timeout != null~}
-  "stopTimeout": ${var.task_stop_timeout},
-  %{~endif}
-  %{if var.task_mount_points != null~}
-  "mountPoints": ${jsonencode(var.task_mount_points)},
-  %{~endif}
-  %{if var.task_container_secrets != null~}
-  "secrets": ${jsonencode(var.task_container_secrets)},
-  %{~endif}
-  %{if var.task_pseudo_terminal != null~}
-  "pseudoTerminal": ${var.task_pseudo_terminal},
-  %{~endif}
-  "environment": ${jsonencode(local.task_environment)},
-  "environmentFiles": ${jsonencode(local.task_environment_files)},
-  "readonlyRootFilesystem": ${var.readonlyRootFilesystem ? true : false}
-}]
-EOF
+  container_definitions = local.container_definitions
 
   runtime_platform {
     operating_system_family = var.operating_system_family

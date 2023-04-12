@@ -35,7 +35,7 @@ output "service_name" {
 
 output "log_group_name" {
   description = "The name of the Cloudwatch log group for the task."
-  value       = aws_cloudwatch_log_group.main.name
+  value       = var.enable_logs ? aws_cloudwatch_log_group.main[0].name : null
 }
 
 output "execution_role_arn" {
@@ -56,4 +56,9 @@ output "task_definition_arn" {
 output "task_definition_name" {
   description = "The name of the task definition created"
   value       = aws_ecs_task_definition.task.arn
+}
+
+output "task_definition_container_definitions" {
+  description = "A list of container definitions"
+  value       = aws_ecs_task_definition.task.container_definitions
 }
