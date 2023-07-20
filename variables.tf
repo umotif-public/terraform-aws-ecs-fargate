@@ -282,3 +282,9 @@ variable "enable_execute_command" {
   description = "Specifies whether to enable Amazon ECS Exec for the tasks within the service."
   default     = true
 }
+
+variable "otel_log_group_name" {
+  type        = string
+  description = "Name of the log group to send OpenTelemetry logs to."
+  default     = "/ecs/opentelemetry"
+}

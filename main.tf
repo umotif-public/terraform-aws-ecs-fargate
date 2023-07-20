@@ -220,6 +220,36 @@ resource "aws_ecs_task_definition" "task" {
   "pseudoTerminal": ${var.task_pseudo_terminal},
   %{~endif}
   "environment": ${jsonencode(local.task_environment)}
+},{
+  "name": "adot-collector",
+  "image": "amazon/aws-otel-collector",
+  "essential": true,
+  "command": [
+    "--config=/etc/ecs/container-insights/otel-task-metrics-config.yaml"
+  ],
+  "cpu": 0,
+  "mountPoints": [],
+  "portMappings": [],
+  "volumesFrom": [],
+  "logConfiguration": {
+    "logDriver": "awslogs",
+    "options": {
+      "awslogs-group": "${var.otel_log_group_name}",
+      "awslogs-region": "${data.aws_region.current.name}",
+      "awslogs-stream-prefix": "container"
+    }
+  },
+  "stopTimeout": 90,
+  "healthCheck": {
+      "command": [
+        "/healthcheck"
+      ],
+      "interval": 5,
+      "timeout": 30,
+      "retries": 5
+    },
+  "secrets": [],
+  "environment": []
 }]
 EOF
 
