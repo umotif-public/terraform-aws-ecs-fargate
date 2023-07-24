@@ -122,7 +122,7 @@ resource "aws_lb_target_group" "task" {
       interval            = lookup(health_check.value, "interval", 30)
       path                = lookup(health_check.value, "path", "/")
       port                = lookup(health_check.value, "port", "traffic-port")
-      protocol            = lookup(health_check.value, "protocol", "TCP")
+      protocol            = lookup(health_check.value, "protocol", "HTTP")
       timeout             = lookup(health_check.value, "timeout", 5)
       healthy_threshold   = lookup(health_check.value, "healthy_threshold", 5)
       unhealthy_threshold = lookup(health_check.value, "unhealthy_threshold", 2)
