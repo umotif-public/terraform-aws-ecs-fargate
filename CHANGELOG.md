@@ -5,15 +5,21 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
-- Comment about 'target_type' for Fargate
-- Revert container name to original
-- Remove square brackets as input is a list
-- Lint fixes
-- Turn cloudwatch logging optional - fix
-- Turn cloudwatch logging optional
-- chore: Update documentation
-- Turn cloudwatch logging optional
-- Refactored container definitions out of module
+- fix: protocol set to HTTP by default
+- fix: setting container_name is now mandatory to utilise multiple container names set externally to module
+- chore: upgrade to 5.x compatibility
+
+
+<a name="7.0.0"></a>
+## [7.0.0] - 2023-04-12
+
+- Refactored container definitions out of module ([#69](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/69))
+
+
+<a name="6.7.1"></a>
+## [6.7.1] - 2023-03-28
+
+- Make egress rule configurable ([#71](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/71))
 
 
 <a name="6.7.0"></a>
@@ -272,7 +278,9 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.7.0...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/7.0.0...HEAD
+[7.0.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.7.1...7.0.0
+[6.7.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.7.0...6.7.1
 [6.7.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.6.0...6.7.0
 [6.6.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.2...6.6.0
 [6.5.2]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.5.1...6.5.2
