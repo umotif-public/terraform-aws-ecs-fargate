@@ -1,15 +1,3 @@
-terraform {
-  required_version = ">= 1.0.11"
-
-  required_providers {
-    aws = ">= 4.8.0"
-  }
-}
-
-provider "aws" {
-  region = "eu-west-1"
-}
-
 #####
 # VPC and subnets
 #####
@@ -86,7 +74,7 @@ resource "aws_efs_file_system" "efs" {
 # ECS cluster and fargate
 #####
 resource "aws_ecs_cluster" "cluster" {
-  name = "ecs-spot-test"
+  name = "ecs-efs-test"
   setting {
     name  = "containerInsights"
     value = "disabled"
@@ -124,6 +112,7 @@ module "fargate" {
     {
       target_group_name = "efs-example"
       container_port    = 80
+      container_name    = "ecs-fargate-example"
     }
   ]
 

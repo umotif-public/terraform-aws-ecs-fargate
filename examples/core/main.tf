@@ -1,15 +1,3 @@
-terraform {
-  required_version = ">= 1.0.11"
-
-  required_providers {
-    aws = ">= 4.6.0"
-  }
-}
-
-provider "aws" {
-  region = "eu-west-1"
-}
-
 #####
 # VPC and subnets
 #####
@@ -116,6 +104,7 @@ module "fargate" {
     {
       target_group_name = "tg-example"
       container_port    = 80
+      container_name    = "ecs-fargate-example" # should be equal to container_name in container definition
     }
   ]
 
