@@ -1,15 +1,3 @@
-terraform {
-  required_version = ">= 1.0.11"
-
-  required_providers {
-    aws = ">= 4.8.0"
-  }
-}
-
-provider "aws" {
-  region = "eu-west-1"
-}
-
 #####
 # VPC and subnets
 #####
@@ -48,7 +36,7 @@ resource "aws_ecs_cluster_capacity_providers" "cluster" {
 
 module "container_1" {
   source  = "cloudposse/ecs-container-definition/aws"
-  version = "0.58.2"
+  version = "0.60.0"
 
   container_name  = "example"
   container_image = "hello-world:latest"
@@ -65,7 +53,7 @@ module "container_1" {
 
 module "container_2" {
   source  = "cloudposse/ecs-container-definition/aws"
-  version = "0.58.2"
+  version = "0.60.0"
 
   container_name  = "example-2"
   container_image = "hello-world:latest"
