@@ -133,10 +133,12 @@ module "fargate" {
     {
       target_group_name = "external-alb"
       container_port    = 443
+      container_name    = "ecs-fargate-example"
     },
     {
       target_group_name = "internal-alb"
       container_port    = 80
+      container_name    = "ecs-fargate-example"
     }
   ]
 

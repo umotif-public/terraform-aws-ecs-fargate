@@ -104,6 +104,7 @@ module "fargate" {
     {
       target_group_name = "tg-example"
       container_port    = 80
+      container_name    = "ecs-fargate-example" # should be equal to container_name in container definition
     }
   ]
 

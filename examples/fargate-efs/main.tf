@@ -112,6 +112,7 @@ module "fargate" {
     {
       target_group_name = "efs-example"
       container_port    = 80
+      container_name    = "ecs-fargate-example"
     }
   ]
 

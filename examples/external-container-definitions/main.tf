@@ -152,7 +152,7 @@ module "fargate" {
 
   target_groups = [
     {
-      container_name    = "example"
+      container_name    = "example" # should be equal to container_name in container definition
       target_group_name = "tg-example"
       container_port    = 80
     }
