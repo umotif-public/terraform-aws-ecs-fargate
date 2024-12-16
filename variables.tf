@@ -229,6 +229,15 @@ variable "capacity_provider_strategy" {
   default     = []
 }
 
+variable "deployment_alarms" {
+  type = list(object({
+    alarm_names = list(string)
+    enable      = optional(bool)
+    rollback    = optional(bool)
+  }))
+  description = "A list of CloudWatch alarms to monitor"
+  default     = []
+}
 variable "placement_constraints" {
   type        = list(any)
   description = "(Optional) A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10. This is a list of maps, where each map should contain \"type\" and \"expression\""

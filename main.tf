@@ -289,6 +289,15 @@ resource "aws_ecs_service" "service" {
     }
   }
 
+  dynamic "alarms" {
+  for_each = var.deployment_alarms != null ? var.deployment_alarms : []
+  content {
+    alarm_names = try(alarms.value.alarm_names, null)
+    enable      = try(alarms.value.enable, false)
+    rollback    = try(alarms.value.rollback, false)
+  }
+}
+
   dynamic "load_balancer" {
     for_each = var.load_balanced ? var.target_groups : []
     content {
