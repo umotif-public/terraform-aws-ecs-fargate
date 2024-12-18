@@ -79,7 +79,7 @@ module "ecs-fargate" {
 
 Module managed by [uMotif](https://github.com/umotif-public/).
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -135,6 +135,7 @@ No modules.
 | <a name="input_cpu_architecture"></a> [cpu\_architecture](#input\_cpu\_architecture) | cpu architecture for the task | `string` | `"X86_64"` | no |
 | <a name="input_create_repository_credentials_iam_policy"></a> [create\_repository\_credentials\_iam\_policy](#input\_create\_repository\_credentials\_iam\_policy) | Set to true if you are specifying `repository_credentials` variable, it will attach IAM policy with necessary permissions to task role. | `bool` | `false` | no |
 | <a name="input_deny_egress_to_anywhere"></a> [deny\_egress\_to\_anywhere](#input\_deny\_egress\_to\_anywhere) | When this parameter is true, no default egress rule will be created | `bool` | `false` | no |
+| <a name="input_deployment_alarms"></a> [deployment\_alarms](#input\_deployment\_alarms) | Information about the CloudWatch alarms | <pre>list(object({<br/>    alarm_names = list(string)<br/>    rollback    = bool<br/>    enable      = bool<br/>  }))</pre> | `[]` | no |
 | <a name="input_deployment_controller_type"></a> [deployment\_controller\_type](#input\_deployment\_controller\_type) | Type of deployment controller. Valid values: CODE\_DEPLOY, ECS, EXTERNAL. Default: ECS. | `string` | `"ECS"` | no |
 | <a name="input_deployment_maximum_percent"></a> [deployment\_maximum\_percent](#input\_deployment\_maximum\_percent) | The upper limit of the number of running tasks that can be running in a service during a deployment | `number` | `200` | no |
 | <a name="input_deployment_minimum_healthy_percent"></a> [deployment\_minimum\_healthy\_percent](#input\_deployment\_minimum\_healthy\_percent) | The lower limit of the number of running tasks that must remain running and healthy in a service during a deployment | `number` | `50` | no |
@@ -209,7 +210,7 @@ No modules.
 | <a name="output_task_definition_name"></a> [task\_definition\_name](#output\_task\_definition\_name) | The name of the task definition created |
 | <a name="output_task_role_arn"></a> [task\_role\_arn](#output\_task\_role\_arn) | The Amazon Resource Name (ARN) specifying the ECS service role. |
 | <a name="output_task_role_name"></a> [task\_role\_name](#output\_task\_role\_name) | The name of the Fargate task service role. |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
 
 ## License
 
