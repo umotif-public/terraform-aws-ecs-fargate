@@ -106,6 +106,7 @@ resource "aws_security_group_rule" "egress_service" {
 resource "aws_lb_target_group" "task" {
   for_each = var.load_balanced ? { for tg in var.target_groups : tg.target_group_name => tg } : {}
 
+  # tflint-ignore: terraform_deprecated_lookup
   name                 = lookup(each.value, "target_group_name")
   vpc_id               = var.vpc_id
   protocol             = var.task_container_protocol
@@ -137,6 +138,7 @@ resource "aws_lb_target_group" "task" {
   tags = merge(
     var.tags,
     {
+      # tflint-ignore: terraform_deprecated_lookup
       Name = lookup(each.value, "target_group_name")
     },
   )
@@ -290,19 +292,22 @@ resource "aws_ecs_service" "service" {
   }
 
   dynamic "alarms" {
-  for_each = var.deployment_alarms != null ? var.deployment_alarms : []
-  content {
-    alarm_names = try(alarms.value.alarm_names, null)
-    enable      = try(alarms.value.enable, false)
-    rollback    = try(alarms.value.rollback, false)
+    for_each = var.deployment_alarms != null ? var.deployment_alarms : []
+    content {
+      alarm_names = try(alarms.value.alarm_names, [])
+      enable      = try(alarms.value.enable, false)
+      rollback    = try(alarms.value.rollback, false)
+    }
   }
-}
 
   dynamic "load_balancer" {
+    # tflint-ignore: terraform_deprecated_lookup
     for_each = var.load_balanced ? var.target_groups : []
     content {
-      container_name   = try(load_balancer.value, "container_name") != "" ? lookup(load_balancer.value, "container_name") : var.name_prefix
-      container_port   = lookup(load_balancer.value, "container_port", var.task_container_port)
+      # tflint-ignore: terraform_deprecated_lookup
+      container_name = try(load_balancer.value, "container_name") != "" ? lookup(load_balancer.value, "container_name") : var.name_prefix
+      container_port = lookup(load_balancer.value, "container_port", var.task_container_port)
+      # tflint-ignore: terraform_deprecated_lookup
       target_group_arn = aws_lb_target_group.task[lookup(load_balancer.value, "target_group_name")].arn
     }
   }
