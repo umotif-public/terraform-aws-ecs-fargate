@@ -35,7 +35,7 @@ locals {
     "logDriver": "awslogs",
     "options": {
       "awslogs-group": "${aws_cloudwatch_log_group.main[0].name}",
-      "awslogs-region": "${data.aws_region.current.name}",
+      "awslogs-region": "${data.aws_region.current.id}",
       "awslogs-stream-prefix": "container"
     }
   }

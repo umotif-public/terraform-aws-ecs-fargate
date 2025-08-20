@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
-- Added dynamic block for cloudwatch alarms
+
+
+<a name="8.1.0"></a>
+## [8.1.0] - 2024-12-18
+
+- Added dynamic block for cloudwatch alarms ([#75](https://github.com/umotif-public/terraform-aws-ecs-fargate/issues/75))
 
 
 <a name="8.0.0"></a>
@@ -282,7 +287,8 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/8.0.0...HEAD
+[Unreleased]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/8.1.0...HEAD
+[8.1.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/8.0.0...8.1.0
 [8.0.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/7.0.0...8.0.0
 [7.0.0]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.7.1...7.0.0
 [6.7.1]: https://github.com/umotif-public/terraform-aws-ecs-fargate/compare/6.7.0...6.7.1
